@@ -19,35 +19,22 @@ class PCPG:
     :param list variable_names: Names of the variables in the system. The order of this list should coincide with
         the order of rows and columns in ``corr_matrix``.
 
-    This class includes methods to perform the necessary computations and obtain a :class:~`networkx.Graph` network
+    This class includes methods to perform the necessary computations and obtain a ``networkx.Graph`` network
     object. The PCPG algorithm consists in the following steps:
 
-        1. find the *Average influence* (AI) between every *ordered* pair of variables in the system (in this
+        #. find the *Average influence* (AI) between every *ordered* pair of variables in the system (in this
         case those in the correlation matrix),
-        2. list the AIs in order from largest to smallest,
-        3. iterate through the list and add a *directed* edge corresponding to the pair of variables of the
+        #. list the AIs in order from largest to smallest,
+        #. iterate through the list and add a *directed* edge corresponding to the pair of variables of the
         AI value in that position **if and only if** (i) the reversed edge is not already in the network and (ii)
         the network's planarity is not broken by adding the edge.
 
-    Attributes
-    ----------
-    :attr:`avg_influence_matrix`: Matrix containing average influence values between pairs of variables.
-    :attr:`avg_influence_df`: ``pandas.DataFrame`` containing average influence values between pairs of variables.
-    :attr:`influence_df`: ``pandas.DataFrame`` containing influence values between pairs of variables.
-    :attr:`partial_corr_df`: multi-index ``pandas.DataFrame`` partial correlation values between triple of
-    variables.
-    :attr:`network`: the PCPG network (a ``networkx.DiGraph`` directed graph object).
-
-    Methods
-    -------
-    :func:`compute_average_influence_matrix`: Performs step 1 of the PCPG algorithm.
-    :func:`compute_influence_avg_influence_partial_corr_dfs`: Perform step 1 of PCPG algorithm saving influence,
-        average influence and partial correlation data.
-    :func:`create_network`: Performs steps 2 and 3 of the PCPG algorithm.
-    :func:`find_edges: Compute edges in the PCPG network using :attr:`avg_influence_matrix`:
-    :func:`add_edge_attribute`: Add data to the edges in the PCPG network.
-    :func:`add_node_attribute`: Add data to the nodes in the PCPG network.
-    :func:`compute_assortativity`: Compute assortativity of network nodes based on a node attribute.
+    :ivar avg_influence_matrix: Matrix containing average influence values between pairs of variables.
+    :ivar avg_influence_df: ``pandas.DataFrame`` containing average influence values between pairs of variables.
+    :ivar influence_df: ``pandas.DataFrame`` containing influence values between pairs of variables.
+    :ivar partial_corr_df: Multi-index ``pandas.DataFrame`` partial correlation values between triple of
+        variables.
+    :ivar network: the PCPG network generated (a ``networkx.DiGraph`` directed graph object).
 
     References
     ----------
@@ -93,7 +80,7 @@ class PCPG:
     def compute_avg_influence_matrix(self):
         """
         Compute average influences between every pair of variables in the system and put these in
-        ``self.avg_influence_matrix``.
+        :attr:`avg_influence_matrix`.
 
         :return: None
 
@@ -250,8 +237,8 @@ class PCPG:
         :param str attr_name: Name of attribute to be added to edges.
 
         .. :note:
-            If attr_data is a :class:pd.DataFrame, rows should indicate the tail of the edge (i.e. the origin node) and
-            columns should indicate the head of the edge (i.e. the target node).
+            If attr_data is a :class:pandas.DataFrame, rows should indicate the tail of the edge (i.e. the origin node)
+            and columns should indicate the head of the edge (i.e. the target node).
             If attr_data is a dictionary, keys should be tuples of the form (origin_node, target_node).
 
         """
