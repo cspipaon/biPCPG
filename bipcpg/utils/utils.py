@@ -13,11 +13,11 @@ def transform_3level_nested_dict_into_stacked_df(nested_dict: dict,
     and a single column. If ``name`` is passed, set the name of the column to ``name``.
 
     :param dict nested_dict: Three level nested dictionary to be transformed.
-    :param str name: Name of single column found in returned :class:``pd.DataFrame``
+    :param str name: Name of single column found in returned :class:`pandas.DataFrame`
     :return: Stacked dataframe with multi-index level 0 corresponding to outermost nested_dict keys, multi-index level 1
         corresponding to nested_dict middle level keys and  multi-index level 2 corresponding to nested_dict innermost
         keys.
-    :rtype: :class:pd.DataFrame
+    :rtype: :class:`pandas.DataFrame`
     """
     reformed_dict = {(level1_key, level2_key, level3_key): [values]
                      for level1_key, level2_dict in nested_dict.items()
@@ -40,7 +40,7 @@ def transform_3level_nested_dict_into_df(
     :return: :class:`pandas.DataFrame` with 2-level multi-index. multi-index level 0 corresponds to outermost
         ``nested_dict`` keys, multi-index level 1 corresponds to ``nested_dict`` middle level keys and columns
         correspond to ``nested_dict`` innermost keys.
-    :rtype: :class:pandas.DataFrame
+    :rtype: :class:`pandas.DataFrame`
     """
     stacked_df = transform_3level_nested_dict_into_stacked_df(nested_dict)
     df = stacked_df.unstack(level=-1)
@@ -109,7 +109,7 @@ def reshape_year_matrices_to_time_series_matrices(list_yearly_matrices: List[np.
         elements in ``list_yearly_matrices``.
     :rtype: list
 
-    .. example:
+    :example:
         This can be used transform a list of matrices (one per year) into a list of time series matrices.
         Say we have a list ``my_list`` containing matrices (one per year) with the exports every country (rows) made for
         every product (columns). We can then transform this into a list of matrices (one per country) with time series

@@ -13,10 +13,10 @@ def construct_corr_matrix_replicates_from_time_series_matrices(array_of_matrices
     Performs a bootstrap procedure on time series matrices to obtain correlation matrix replicates. If
     ``critical_value`` is not None, the correlation matrices are filtered using a statistical significance T-test.
 
-    :param numpy.ndarray array_of_matrices: 3-dimensional ``np.ndarray`` with axis 0 representing elements of one of
+    :param numpy.ndarray array_of_matrices: 3-dimensional ``numpy.ndarray`` with axis 0 representing elements of one of
         the sets in the bipartite system, axis 1 representing time series observations and axis 2 representing elements
         of the remaining set in the bipartite system.
-    :param int num_replicates: Number of correlation matrix replicates to be constructed
+    :param int num_replicates: Number of correlation matrix replicates to be constructed.
     :param float critical_value: If passed, boundary of the acceptance region of the T-test performed.
     :return: Array containing mean of correlation matrix replicates in each batch.
     :rtype: numpy.ndarray

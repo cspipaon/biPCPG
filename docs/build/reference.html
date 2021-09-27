@@ -310,10 +310,10 @@ p-value matrices corresponding to each correlation matrix.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>array_of_matrices</strong> (<em>numpy.ndarray</em>) – 3-dimensional <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> with axis 0 representing elements of one of
+<li><p><strong>array_of_matrices</strong> (<em>numpy.ndarray</em>) – 3-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> with axis 0 representing elements of one of
 the sets in the bipartite system, axis 1 representing time series observations and axis 2 representing elements
 of the remaining set in the bipartite system.</p></li>
-<li><p><strong>num_replicates</strong> (<em>int</em>) – Number of correlation matrix replicates to be constructed</p></li>
+<li><p><strong>num_replicates</strong> (<em>int</em>) – Number of correlation matrix replicates to be constructed.</p></li>
 <li><p><strong>critical_value</strong> (<em>float</em>) – If passed, boundary of the acceptance region of the T-test performed.</p></li>
 </ul>
 </dd>
@@ -411,6 +411,12 @@ elements in <code class="docutils literal notranslate"><span class="pre">list_ye
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list</p>
 </dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p>This can be used transform a list of matrices (one per year) into a list of time series matrices.
+Say we have a list <code class="docutils literal notranslate"><span class="pre">my_list</span></code> containing matrices (one per year) with the exports every country (rows) made for
+every product (columns). We can then transform this into a list of matrices (one per country) with time series
+observations along the rows and products along the columns.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -428,7 +434,7 @@ elements in <code class="docutils literal notranslate"><span class="pre">list_ye
 correspond to <code class="docutils literal notranslate"><span class="pre">nested_dict</span></code> innermost keys.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>:class:pandas.DataFrame</p>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -442,7 +448,7 @@ and a single column. If <code class="docutils literal notranslate"><span class="
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nested_dict</strong> (<em>dict</em>) – Three level nested dictionary to be transformed.</p></li>
-<li><p><strong>name</strong> (<em>str</em>) – Name of single column found in returned :class:<code class="docutils literal notranslate"><span class="pre">pd.DataFrame</span></code></p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Name of single column found in returned <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -451,7 +457,7 @@ corresponding to nested_dict middle level keys and  multi-index level 2 correspo
 keys.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>:class:pd.DataFrame</p>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -460,24 +466,23 @@ keys.</p>
 <dt id="utils.communities_utils.communities_data">
 <code class="sig-prename descclassname">utils.communities_utils.</code><code class="sig-name descname">communities_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">G</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">la_kwds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.communities_utils.communities_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform a community detection procedure on graph <code class="docutils literal notranslate"><span class="pre">G</span></code> and return relevant results for plotting.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>G</strong> (<em>:class:nx.Graph</em>) – <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph on which to perform community detection.</p></li>
-<li><p><strong>la_kwds</strong> – keyword arguments passed on to <code class="xref py py-func docutils literal notranslate"><span class="pre">leidenalg.find_partition()</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
+<p>:param <code class="xref py py-class docutils literal notranslate"><span class="pre">networkx.Graph</span></code> G: <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph on which to perform community detection.
+:param la_kwds: keyword arguments passed on to <code class="xref py py-func docutils literal notranslate"><span class="pre">leidenalg.find_partition()</span></code>.
+:return:</p>
+<blockquote>
+<div><ul class="simple">
 <li><p>G_igraph <code class="xref py py-class docutils literal notranslate"><span class="pre">igraph.Graph</span></code> - <cite>igraph</cite> graph object equivalent to <code class="docutils literal notranslate"><span class="pre">G</span></code>.</p></li>
 <li><p>partition <code class="xref py py-class docutils literal notranslate"><span class="pre">leidenalg.VertexPartition</span></code> - Graph partition.</p></li>
-<li><p>tup_nodes_num_nodes :py:class:tuple - <code class="docutils literal notranslate"><span class="pre">tuple</span></code> containing list of nodes sorted by community and list of
+<li><p>tup_nodes_num_nodes tuple - <cite>tuple</cite> containing list of nodes sorted by community and list of
 number of nodes per community</p></li>
 </ul>
-</p>
-</dd>
+</div></blockquote>
+<dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>tuple</p>
+</dd>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><p><strong>G</strong> (<em>networkx.classes.graph.Graph</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
