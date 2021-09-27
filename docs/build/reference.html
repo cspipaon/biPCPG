@@ -27,6 +27,9 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="tutorial.html" title="Tutorial"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">biPCPG 0.1.0 documentation</a> &#187;</li>
@@ -43,55 +46,344 @@
 <h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="pcpg-class">
 <h2>PCPG class<a class="headerlink" href="#pcpg-class" title="Permalink to this headline">¶</a></h2>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>eval_rst
-.. autoclass:: bipcpg.pcpg.PCPG</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">members</dt>
-<dd class="field-odd"><p></p></dd>
-<dt class="field-even">undoc-members</dt>
-<dd class="field-even"><p></p></dd>
-<dt class="field-odd">show-inheritance</dt>
-<dd class="field-odd"><p></p></dd>
+<dl class="py class">
+<dt id="bipcpg.pcpg.PCPG">
+<em class="property">class </em><code class="sig-prename descclassname">bipcpg.pcpg.</code><code class="sig-name descname">PCPG</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">corr_matrix</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">variable_names</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#bipcpg.pcpg.PCPG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to obtain a Partial Correlation Planar Graph (PCPG) network from a correlation matrix. [1]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>corr_matrix</strong> (<em>:class:pandas.DataFrame/:class:numpy.ndarray</em>) – Correlation matrix displaying correlations
+among variables in the system.</p></li>
+<li><p><strong>variable_names</strong> (<em>list</em>) – Names of the variables in the system. The order of this list should coincide with
+the order of rows and columns in <code class="docutils literal notranslate"><span class="pre">corr_matrix</span></code>.</p></li>
+</ul>
+</dd>
 </dl>
+<p>This class includes methods to perform the necessary computations and obtain a :class:~`networkx.Graph` network
+object. The PCPG algorithm consists in the following steps:</p>
+<blockquote>
+<div><p>1. find the <em>Average influence</em> (AI) between every <em>ordered</em> pair of variables in the system (in this
+case those in the correlation matrix),
+2. list the AIs in order from largest to smallest,
+3. iterate through the list and add a <em>directed</em> edge corresponding to the pair of variables of the
+AI value in that position <strong>if and only if</strong> (i) the reversed edge is not already in the network and (ii)
+the network’s planarity is not broken by adding the edge.</p>
 </div></blockquote>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">:attr:`avg_influence_matrix`</code></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Matrix containing average influence values between pairs of variables.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">:attr:`avg_influence_df`</code></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing average influence values between pairs of variables.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">:attr:`influence_df`</code></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing influence values between pairs of variables.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">:attr:`partial_corr_df`</code></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>multi-index <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> partial correlation values between triple of</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">variables.</code></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt>
+<code class="sig-name descname">:attr:`network`</code></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>the PCPG network (a <code class="docutils literal notranslate"><span class="pre">networkx.DiGraph</span></code> directed graph object).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">:func:`compute_average_influence_matrix`: Performs step 1 of the PCPG algorithm.</code></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">:func:`compute_influence_avg_influence_partial_corr_dfs`: Perform step 1 of PCPG algorithm saving influence,</code></dt>
+<dd><p>average influence and partial correlation data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">:func:`create_network`: Performs steps 2 and 3 of the PCPG algorithm.</code></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">:func:`find_edges: Compute edges in the PCPG network using :attr:`avg_influence_matrix`:</code></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">:func:`add_edge_attribute`: Add data to the edges in the PCPG network.</code></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">:func:`add_node_attribute`: Add data to the nodes in the PCPG network.</code></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">:func:`compute_assortativity`: Compute assortativity of network nodes based on a node attribute.</code></dt>
+<dd></dd></dl>
+
+<p class="rubric">References</p>
+<dl class="py method">
+<dt id="bipcpg.pcpg.PCPG.add_edge_attribute">
+<code class="sig-name descname">add_edge_attribute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attr_data</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">attr_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#bipcpg.pcpg.PCPG.add_edge_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds data for single attribute to edges in <code class="xref py py-attr docutils literal notranslate"><span class="pre">network</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attr_data</strong> (<em>dict/:class:pd.DataFrame</em>) – pd.DataFrame or dictionary containing edge attribute values.</p></li>
+<li><p><strong>attr_name</strong> (<em>str</em>) – Name of attribute to be added to edges.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bipcpg.pcpg.PCPG.add_node_attribute">
+<code class="sig-name descname">add_node_attribute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attr_data</span><span class="p">:</span> <span class="n">dict</span></em>, <em class="sig-param"><span class="n">attr_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#bipcpg.pcpg.PCPG.add_node_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds node attribute data to nodes in <code class="xref py py-attr docutils literal notranslate"><span class="pre">network</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attr_data</strong> (<em>dict/:class:pd.DataFrame</em>) – :class:pd.Series or dictionary containing node attribute values.</p></li>
+<li><p><strong>attr_name</strong> (<em>str</em>) – Name of attribute added.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bipcpg.pcpg.PCPG.compute_assortativity">
+<code class="sig-name descname">compute_assortativity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node_attribute</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">attr_type</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#bipcpg.pcpg.PCPG.compute_assortativity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute node assortativity based on <code class="docutils literal notranslate"><span class="pre">node_attribute</span></code> of nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_attribute</strong> (<em>str</em>) – Name of node attribute by which to compute assortativity.</p></li>
+<li><p><strong>attr_type</strong> (<em>str</em>) – Either “qual” or “quant”. Indicates if attribute data is either a qualitative
+characteristic or a quantitative characteristic.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Value of calculated assortativity.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bipcpg.pcpg.PCPG.compute_avg_influence_matrix">
+<code class="sig-name descname">compute_avg_influence_matrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bipcpg.pcpg.PCPG.compute_avg_influence_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute average influences between every pair of variables in the system and put these in
+<code class="docutils literal notranslate"><span class="pre">self.avg_influence_matrix</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bipcpg.pcpg.PCPG.compute_influence_avg_influence_partial_corr_dfs">
+<code class="sig-name descname">compute_influence_avg_influence_partial_corr_dfs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bipcpg.pcpg.PCPG.compute_influence_avg_influence_partial_corr_dfs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute partial correlations, influences and average influences between all variables in the system and put
+these in <code class="xref py py-attr docutils literal notranslate"><span class="pre">partial_corr_df</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">influence_df</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">avg_influence_df</span></code> respectively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bipcpg.pcpg.PCPG.create_network">
+<code class="sig-name descname">create_network</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bipcpg.pcpg.PCPG.create_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create PCPG a :class:nx.DiGraph network with <code class="xref py py-attr docutils literal notranslate"><span class="pre">nodes</span></code>: and edges found following the PCPG algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bipcpg.pcpg.PCPG.find_edges">
+<code class="sig-name descname">find_edges</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#bipcpg.pcpg.PCPG.find_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the edges in the PCPG network using the average influences in <code class="xref py py-attr docutils literal notranslate"><span class="pre">avg_influence_matrix</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of edges in the PCPG network</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="correlations-and-bootstrap-functions">
-<h2>Correlations and Bootstrap Functions<a class="headerlink" href="#correlations-and-bootstrap-functions" title="Permalink to this headline">¶</a></h2>
-<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>eval_rst
-.. automodule:: bipcg.correlations</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">members</dt>
-<dd class="field-odd"><p>get_correlation_matrices_for_list_of_matrices
-compute_corr_matrix
-corr_pvalue_matrices
-construct_corr_matrix_replicates_from_time_series_matrices
-get_boostrap_values</p>
+<div class="section" id="module-bipcpg.correlations">
+<span id="correlations-and-bootstrap-functions"></span><h2>Correlations and Bootstrap Functions<a class="headerlink" href="#module-bipcpg.correlations" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="bipcpg.correlations.compute_corr_matrix">
+<code class="sig-prename descclassname">bipcpg.correlations.</code><code class="sig-name descname">compute_corr_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matrix</span><span class="p">:</span> <span class="n">numpy.array</span></em>, <em class="sig-param"><span class="n">critical_value</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#bipcpg.correlations.compute_corr_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain a correlation matrix among the variables in a matrix. If <code class="docutils literal notranslate"><span class="pre">critical</span> <span class="pre">value</span></code> is passed, the correlation matrix
+is filtered based on a statistical significance T-test where <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> is the threshold value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> (<em>:class:numpy.ndarray</em>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> containing time series for the values of interest with
+observations along axis 0 (rows) and variables along axis 1 (columns).</p></li>
+<li><p><strong>critical_value</strong> (<em>float</em>) – Boundary of the acceptance region of the t-test performed.</p></li>
+</ul>
 </dd>
-<dt class="field-even">undoc-members</dt>
-<dd class="field-even"><p></p></dd>
-<dt class="field-odd">show-inheritance</dt>
-<dd class="field-odd"><p></p></dd>
-</dl>
-</div></blockquote>
-<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
-<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a>eval_rst
-.. automodule:: bipcpg.bootstrap</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">members</dt>
-<dd class="field-odd"><p>construct_corr_matrix_replicates_from_time_series_matrices
-get_boostrap_values</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Correlation matrix displaying correlation coefficients between the columns (axis 1) of each input matrix.</p>
 </dd>
-<dt class="field-even">undoc-members</dt>
-<dd class="field-even"><p></p></dd>
-<dt class="field-odd">show-inheritance</dt>
-<dd class="field-odd"><p></p></dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>:class:numpy.ndarray</p>
+</dd>
 </dl>
-</div></blockquote>
-<p><a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="bipcpg.correlations.corr_pvalue_matrices">
+<code class="sig-prename descclassname">bipcpg.correlations.</code><code class="sig-name descname">corr_pvalue_matrices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matrix</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; tuple<a class="headerlink" href="#bipcpg.correlations.corr_pvalue_matrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain a correlation matrix and p-value matrix for a matrix containing variables and observations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>matrix</strong> (<em>:class:numpy.ndarray</em>) – 2-dimensional numpy.ndarray containing containing observations axis 0 and
+variables along axis 1.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tuple containing correlation matrix showing correlation coefficients between columns of input matrix
+and p-value matrix showing statistical significance of correlations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="bipcpg.correlations.get_correlation_matrices_for_list_of_matrices">
+<code class="sig-prename descclassname">bipcpg.correlations.</code><code class="sig-name descname">get_correlation_matrices_for_list_of_matrices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_matrices</span><span class="p">:</span> <span class="n">List<span class="p">[</span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">critical_value</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>List<span class="p">[</span>numpy.ndarray<span class="p">]</span><span class="p">, </span>List<span class="p">[</span>numpy.ndarray<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#bipcpg.correlations.get_correlation_matrices_for_list_of_matrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain a correlation matrix and p-value matrix for each matrix (containing variables along the columns and
+observations along the rows) in <code class="docutils literal notranslate"><span class="pre">list_matrices</span></code>. If <code class="docutils literal notranslate"><span class="pre">critical</span> <span class="pre">value</span></code> is passed, each correlation matrix is
+filtered based on a statistical significance T-test where <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> is the threshold value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>list_matrices</strong> (<em>list</em>) – list of 2-dimensional <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> containing observations along axis 0 (rows)
+and variables along axis 1 (columns).</p></li>
+<li><p><strong>critical_value</strong> (<em>float</em>) – Boundary of the acceptance region of the t-test performed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tuple containing: (i) list of length len(list_time_series_matrices) containing correlation matrices
+displaying the correlation coefficients between the columns (axis 1) of each input matrix, and (ii) list of
+p-value matrices corresponding to each correlation matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-bipcpg.bootstrap"></span><dl class="py function">
+<dt id="bipcpg.bootstrap.construct_corr_matrix_replicates_from_time_series_matrices">
+<code class="sig-prename descclassname">bipcpg.bootstrap.</code><code class="sig-name descname">construct_corr_matrix_replicates_from_time_series_matrices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array_of_matrices</span><span class="p">:</span> <span class="n">numpy.array</span></em>, <em class="sig-param"><span class="n">num_replicates</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">critical_value</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#bipcpg.bootstrap.construct_corr_matrix_replicates_from_time_series_matrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a bootstrap procedure on time series matrices to obtain correlation matrix replicates. If
+<code class="docutils literal notranslate"><span class="pre">critical_value</span></code> is not None, the correlation matrices are filtered using a statistical significance t-test.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array_of_matrices</strong> (<em>:class:np.ndarray</em>) – 3-dimensional <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> with axis 0 representing elements of one of
+the sets in the bipartite system, axis 1 representing time series observations and axis 2 representing elements
+of the remaining set in the bipartite system.</p></li>
+<li><p><strong>num_replicates</strong> (<em>int</em>) – Number of correlation matrix replicates to be constructed</p></li>
+<li><p><strong>critical_value</strong> (<em>float</em>) – If passed, boundary of the acceptance region of the t-test performed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array containing mean of correlation matrix replicates in each batch.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>:class:numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="bipcpg.bootstrap.get_boostrap_values">
+<code class="sig-prename descclassname">bipcpg.bootstrap.</code><code class="sig-name descname">get_boostrap_values</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeseries_matrices</span><span class="p">:</span> <span class="n">Iterable<span class="p">[</span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">num_replicates</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">critical_value</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#bipcpg.bootstrap.get_boostrap_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute bootstrap values for edges in a PCPG network. This function takes a dataset in the form of a list or
+numpy array of matrices with time series in its columns (see <a class="reference internal" href="tutorial.html#dataset-info"><span class="std std-ref">Dataset structure</span></a>) performs a bootstrap procedure
+that generates a total of <code class="docutils literal notranslate"><span class="pre">num_replicates</span></code> replicate PCPG matrices and finds the bootstrap value of each edge,
+i.e. the fraction of times the edge appears in these networks. If <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> is not None, the replicate
+correlation matrices generated are filtered using a statistical significance t-test.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeseries_matrices</strong> (<em>list/numpy.ndarray</em>) – Iterable containing the dataset for which the PCPG network was
+generated. This should be a list containing matrices whose columns contain observations for one of the the two
+sets of variables in a bipartite dataset.</p></li>
+<li><p><strong>num_replicates</strong> (<em>int</em>) – Number of replicates to generate in the bootstrap procedure.</p></li>
+<li><p><strong>critical_value</strong> (<em>float</em>) – If passed, boundary of the acceptance region of the t-test performed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Pandas DataFrame containing the bootstrap values of the <em>directed</em> edges in the PCPG network. Note that
+the source of an edge is its row index and the target of the edge is its column index.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </div>
 
@@ -106,7 +398,7 @@ get_boostrap_values</p>
   <ul>
 <li><a class="reference internal" href="#">Reference</a><ul>
 <li><a class="reference internal" href="#pcpg-class">PCPG class</a></li>
-<li><a class="reference internal" href="#correlations-and-bootstrap-functions">Correlations and Bootstrap Functions</a></li>
+<li><a class="reference internal" href="#module-bipcpg.correlations">Correlations and Bootstrap Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -141,6 +433,9 @@ get_boostrap_values</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="tutorial.html" title="Tutorial"
              >previous</a> |</li>
