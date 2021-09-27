@@ -4,7 +4,7 @@ Reference
 PCPG class
 ----------
 
-.. autoclass:: bipcpg.pcpg.PCPG
+.. autoclass:: pcpg.PCPG
     :members:
     :undoc-members:
     :show-inheritance:
@@ -13,12 +13,12 @@ PCPG class
 Correlations and Bootstrap Functions
 ------------------------------------
 
-.. automodule:: bipcpg.correlations
+.. automodule:: correlations
     :members: get_correlation_matrices_for_list_of_matrices, compute_corr_matrix, corr_pvalue_matrices
     :undoc-members:
     :show-inheritance:
 
-.. automodule:: bipcpg.bootstrap
+.. automodule:: bootstrap
     :members: construct_corr_matrix_replicates_from_time_series_matrices, get_boostrap_values
     :undoc-members:
     :show-inheritance:

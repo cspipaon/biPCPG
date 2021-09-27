@@ -1,10 +1,10 @@
 import numpy as np
 import pandas as pd
 from collections import Counter
-from typing import Optional, List, Iterable
+from typing import Optional, Iterable
 
-from pcpg import PCPG
-from correlations import compute_corr_matrix
+from bipcpg.pcpg import PCPG
+from bipcpg.correlations import compute_corr_matrix
 
 
 def construct_corr_matrix_replicates_from_time_series_matrices(array_of_matrices: np.array, num_replicates: int,
