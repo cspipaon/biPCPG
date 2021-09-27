@@ -416,17 +416,17 @@ elements in <code class="docutils literal notranslate"><span class="pre">list_ye
 Say we have a list <code class="docutils literal notranslate"><span class="pre">my_list</span></code> containing matrices (one per year) with the exports every country (rows) made for
 every product (columns). We can then transform this into a list of matrices (one per country) with time series
 observations along the rows and products along the columns.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">],[</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">]])]</span>
-<span class="n">my_list_transformed</span> <span class="o">=</span> <span class="n">transform_year_matrices_to_time_series_matrices</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
-<span class="n">my_list_transformed</span>
-<span class="p">[</span>
-<span class="n">array</span><span class="p">([[</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">],</span>
-       <span class="p">[</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">],</span>
-       <span class="p">[</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]]),</span>
-<span class="n">array</span><span class="p">([[</span> <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span><span class="p">],</span>
-       <span class="p">[</span> <span class="mi">7</span><span class="p">,</span>  <span class="mi">8</span><span class="p">],</span>
-       <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">]])</span>
-<span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">],[</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">]])]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_list_transformed</span> <span class="o">=</span> <span class="n">transform_year_matrices_to_time_series_matrices</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_list_transformed</span>
+<span class="go">    [</span>
+<span class="go">    array([[ 1,  2],</span>
+<span class="go">           [ 5,  6],</span>
+<span class="go">           [ 9, 10]]),</span>
+<span class="go">    array([[ 3,  4],</span>
+<span class="go">           [ 7,  8],</span>
+<span class="go">           [11, 12]])</span>
+<span class="go">    ]</span>
 </pre></div>
 </div>
 </dd>
