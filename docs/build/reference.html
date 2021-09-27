@@ -145,7 +145,7 @@ If attr_data is a dictionary, keys should be tuples of the form (origin_node, ta
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>attr_data</strong> (<em>dict/pandas.Series</em>) – <code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code> or dictionary containing node attribute values.</p></li>
+<li><p><strong>attr_data</strong> (<em>dict/pandas.Series</em>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> or dictionary containing node attribute values.</p></li>
 <li><p><strong>attr_name</strong> (<em>str</em>) – Name of attribute added.</p></li>
 </ul>
 </dd>
@@ -154,7 +154,7 @@ If attr_data is a dictionary, keys should be tuples of the form (origin_node, ta
 <p class="admonition-title">Note</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">edge_attribute_values</span></code> is a <code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code>, its index should contain the node and its values the
 attribute data.
-If <code class="docutils literal notranslate"><span class="pre">edge_attribute_values</span></code> is a dictionary, keys should be nodes and values should be attribute data.</p>
+If <code class="docutils literal notranslate"><span class="pre">edge_attribute_values</span></code> is a <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, keys should be nodes and values should be attribute data.</p>
 </div>
 </dd></dl>
 
@@ -397,7 +397,7 @@ with a smaller index.</p>
 <code class="sig-prename descclassname">utils.utils.</code><code class="sig-name descname">reshape_year_matrices_to_time_series_matrices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_yearly_matrices</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.utils.reshape_year_matrices_to_time_series_matrices" title="Permalink to this definition">¶</a></dt>
 <dd><p>For a list of <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> s, switch the first dimension (list entries) for the second dimension (axis 0)
 of matrices in the list.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>list_yearly_matrices</strong> (<em>list</em>) – list of 2-dimensional <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> s indexed over time. Each matrix has
 one set of variables of the bipartite dataset along axis 0 (rows) and the other set of variables in the
@@ -416,6 +416,19 @@ elements in <code class="docutils literal notranslate"><span class="pre">list_ye
 Say we have a list <code class="docutils literal notranslate"><span class="pre">my_list</span></code> containing matrices (one per year) with the exports every country (rows) made for
 every product (columns). We can then transform this into a list of matrices (one per country) with time series
 observations along the rows and products along the columns.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">],[</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">]])]</span>
+<span class="n">my_list_transformed</span> <span class="o">=</span> <span class="n">transform_year_matrices_to_time_series_matrices</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="n">my_list_transformed</span>
+<span class="p">[</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]]),</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">7</span><span class="p">,</span>  <span class="mi">8</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">]])</span>
+<span class="p">]</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </dd></dl>
@@ -468,7 +481,7 @@ keys.</p>
 <dd><p>Perform a community detection procedure on graph <code class="docutils literal notranslate"><span class="pre">G</span></code> and return relevant results for plotting.</p>
 <p>:param <code class="xref py py-class docutils literal notranslate"><span class="pre">networkx.Graph</span></code> G: <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph on which to perform community detection.
 :param la_kwds: keyword arguments passed on to <code class="xref py py-func docutils literal notranslate"><span class="pre">leidenalg.find_partition()</span></code>.
-:return:</p>
+:return: Tuple containing:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>G_igraph <code class="xref py py-class docutils literal notranslate"><span class="pre">igraph.Graph</span></code> - <cite>igraph</cite> graph object equivalent to <code class="docutils literal notranslate"><span class="pre">G</span></code>.</p></li>

@@ -259,13 +259,13 @@ class PCPG:
         """
         Adds node attribute data to nodes in :attr:`network`.
 
-        :param dict/pandas.Series attr_data: ``pandas.Series`` or dictionary containing node attribute values.
+        :param dict/pandas.Series attr_data: :class:`pandas.Series` or dictionary containing node attribute values.
         :param str attr_name: Name of attribute added.
 
         .. note::
             If ``edge_attribute_values`` is a ``pandas.Series``, its index should contain the node and its values the
             attribute data.
-            If ``edge_attribute_values`` is a dictionary, keys should be nodes and values should be attribute data.
+            If ``edge_attribute_values`` is a :class:`dict`, keys should be nodes and values should be attribute data.
 
         """
         assert isinstance(self.network, nx.DiGraph), \

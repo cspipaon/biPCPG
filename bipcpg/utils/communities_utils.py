@@ -30,7 +30,7 @@ def communities_data(G: nx.Graph, **la_kwds) -> tuple:
 
     :param :class:`networkx.Graph` G: ``networkx`` graph on which to perform community detection.
     :param la_kwds: keyword arguments passed on to :py:func:`leidenalg.find_partition`.
-    :return:
+    :return: Tuple containing:
         - G_igraph :class:`igraph.Graph` - `igraph` graph object equivalent to ``G``.
         - partition :class:`leidenalg.VertexPartition` - Graph partition.
         - tup_nodes_num_nodes tuple - `tuple` containing list of nodes sorted by community and list of
