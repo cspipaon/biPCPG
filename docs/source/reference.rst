@@ -25,3 +25,17 @@ Bootstrap functions
     :members: construct_corr_matrix_replicates_from_time_series_matrices, get_boostrap_values
     :undoc-members:
     :show-inheritance:
+
+Util functions
+--------------
+
+.. automodule:: utils.utils
+    :members: transform_3level_nested_dict_into_stacked_df, transform_3level_nested_dict_into_df,
+              remove_reversed_duplicates, get_degrees_df, reshape_year_matrices_to_time_series_matrices
+    :undoc-members:
+    :show-inheritance:
+
+.. automodule:: utils.communities_utils
+    :members: get_igraph_network_and_partition, communities_data
+    :undoc-members:
+    :show-inheritance:

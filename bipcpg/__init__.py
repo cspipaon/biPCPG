@@ -15,5 +15,5 @@ from .utils.utils import remove_reversed_duplicates
 from .utils.utils import get_degrees_df
 from .utils.utils import reshape_year_matrices_to_time_series_matrices
 
-from.utils.communties_utils import _get_igraph_network_and_partition
+from.utils.communties_utils import get_igraph_network_and_partition
 from.utils.communties_utils import communities_data

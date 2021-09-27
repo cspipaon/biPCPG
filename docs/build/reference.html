@@ -42,6 +42,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#pcpg-class">PCPG class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-correlations">Correlations Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-bootstrap">Bootstrap functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.utils">Util functions</a></li>
 </ul>
 </li>
 </ul>
@@ -144,7 +145,7 @@ If attr_data is a dictionary, keys should be tuples of the form (origin_node, ta
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>attr_data</strong> (<em>dict/pandas.DataFrame</em>) – <code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code> or dictionary containing node attribute values.</p></li>
+<li><p><strong>attr_data</strong> (<em>dict/pandas.Series</em>) – <code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code> or dictionary containing node attribute values.</p></li>
 <li><p><strong>attr_name</strong> (<em>str</em>) – Name of attribute added.</p></li>
 </ul>
 </dd>
@@ -349,6 +350,127 @@ the source of an edge is its row index and the target of the edge is its column 
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.utils">
+<span id="util-functions"></span><h2>Util functions<a class="headerlink" href="#module-utils.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="utils.utils.get_degrees_df">
+<code class="sig-prename descclassname">utils.utils.</code><code class="sig-name descname">get_degrees_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">G</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.utils.get_degrees_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing the degree, in-degree and out-degree information of the nodes in <code class="docutils literal notranslate"><span class="pre">G</span></code>.</p>
+<p>:param <code class="xref py py-class docutils literal notranslate"><span class="pre">networkx.DiGraph</span></code> G: Directed network.
+:return: Table containing degree information
+:rtype: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>G</strong> (<em>networkx.classes.digraph.DiGraph</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pandas.core.frame.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.utils.remove_reversed_duplicates">
+<code class="sig-prename descclassname">utils.utils.</code><code class="sig-name descname">remove_reversed_duplicates</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.utils.remove_reversed_duplicates" title="Permalink to this definition">¶</a></dt>
+<dd><p>For an iterable object containing other iterables, yield items which do not have a reversed duplicate in a position
+with a smaller index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>iterable</strong> (<em>Iterable</em>) – An iterable object containing other iterables.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Inner iterables which do not have a reversed duplicate in a position with a smaller index.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Iterator[Iterable]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.utils.reshape_year_matrices_to_time_series_matrices">
+<code class="sig-prename descclassname">utils.utils.</code><code class="sig-name descname">reshape_year_matrices_to_time_series_matrices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_yearly_matrices</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.utils.reshape_year_matrices_to_time_series_matrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a list of :class:<a href="#id1"><span class="problematic" id="id2">`</span></a>np.ndarray`s, switch the first dimension (list entries) for the second dimension (axis 0) of
+matrices in the list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>list_yearly_matrices</strong> (<em>list</em>) – list of 2-dimensional :class:<a href="#id3"><span class="problematic" id="id4">`</span></a>np.ndarray`s indexed over time. Each matrix has one
+set of variables of the bipartite dataset along axis 0 (rows) and the other set of variables in the bipartite
+dataset along axis 1 (columns).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of 2-dimensional <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> indexed over the elements in the rows of the matrices in
+<code class="docutils literal notranslate"><span class="pre">list_yearly_matrices</span></code>. Axis 0 (rows) of each matrix is now indexed over time, i.e. the dimension of the
+elements in <code class="docutils literal notranslate"><span class="pre">list_yearly_matrices</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p>This can be used transform a list of matrices (one per year) into a list of time series matrices.
+Say we have a list <code class="docutils literal notranslate"><span class="pre">my_list</span></code> containing matrices (one per year) with the exports every country (rows) made for
+every product (columns). We can then transform this into a list of matrices (one per country) with time series
+observations along the rows and products along the columns.</p>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a>my_list = [np.array([[1,2],[3,4]]), np.array([[5,6],[7,8]]), np.array([[9,10],[11,12]])]
+my_list_transformed = transform_year_matrices_to_time_series_matrices(my_list)
+my_list_transformed
+[
+array([[ 1,  2],</p>
+<blockquote>
+<div><p>[ 5,  6],
+[ 9, 10]]),</p>
+</div></blockquote>
+<dl class="simple">
+<dt>array([[ 3,  4],</dt><dd><p>[ 7,  8],
+[11, 12]])</p>
+</dd>
+</dl>
+<p>]``</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.utils.transform_3level_nested_dict_into_df">
+<code class="sig-prename descclassname">utils.utils.</code><code class="sig-name descname">transform_3level_nested_dict_into_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nested_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.utils.transform_3level_nested_dict_into_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform a nested dictionary with three levels into a stacked <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> with a 2 level multi-index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nested_dict</strong> (<em>dict</em>) – Three level nested dictionary to be transformed.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> with 2-level multi-index. multi-index level 0 corresponds to outermost
+<code class="docutils literal notranslate"><span class="pre">nested_dict</span></code> keys, multi-index level 1 corresponds to <code class="docutils literal notranslate"><span class="pre">nested_dict</span></code> middle level keys and columns
+correspond to <code class="docutils literal notranslate"><span class="pre">nested_dict</span></code> innermost keys.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>:class:pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.utils.transform_3level_nested_dict_into_stacked_df">
+<code class="sig-prename descclassname">utils.utils.</code><code class="sig-name descname">transform_3level_nested_dict_into_stacked_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nested_dict</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.utils.transform_3level_nested_dict_into_stacked_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform a nested dictionary with three levels into a stacked <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> with a 3 level multi-index
+and a single column. If <code class="docutils literal notranslate"><span class="pre">name</span></code> is passed, set the name of the column to <code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nested_dict</strong> (<em>dict</em>) – Three level nested dictionary to be transformed.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Name of single column found in returned :class:<code class="docutils literal notranslate"><span class="pre">pd.DataFrame</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Stacked dataframe with multi-index level 0 corresponding to outermost nested_dict keys, multi-index level 1
+corresponding to nested_dict middle level keys and  multi-index level 2 corresponding to nested_dict innermost
+keys.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>:class:pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>

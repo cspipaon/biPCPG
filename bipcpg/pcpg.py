@@ -259,7 +259,7 @@ class PCPG:
         """
         Adds node attribute data to nodes in :attr:`network`.
 
-        :param dict/pandas.DataFrame attr_data: ``pandas.Series`` or dictionary containing node attribute values.
+        :param dict/pandas.Series attr_data: ``pandas.Series`` or dictionary containing node attribute values.
         :param str attr_name: Name of attribute added.
 
         .. note::

@@ -4,10 +4,10 @@ import leidenalg as la
 import networkx as nx
 
 
-def _get_igraph_network_and_partition(G: nx.Graph, **la_kwds) -> tuple:
+def get_igraph_network_and_partition(G: nx.Graph, **la_kwds) -> tuple:
     """
     Obtain an ``igraph`` graph and a partition from a ``networkx`` graph.
-    :param :class:nx.Graph G: `networkx` graph to be converted into `igraph` graph.
+    :param networkx.Graph G: `networkx` graph to be converted into `igraph` graph.
     :param la_kwds: keyword arguments passed on to ``leidenalg.find_partition()``.
     :return:
         - partition :class:`leidenalg.VertexPartition` - Graph partition.
@@ -35,7 +35,7 @@ def communities_data(G: nx.Graph, **la_kwds) -> tuple:
         number of nodes per community
     :rtype: tuple
     """
-    G_igraph, partition = _get_igraph_network_and_partition(G, **la_kwds)
+    G_igraph, partition = get_igraph_network_and_partition(G, **la_kwds)
 
     # create dictionary with networkx node name as key and community id as value
     node_names_nx = G_igraph.vs['_nx_name']
