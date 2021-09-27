@@ -119,7 +119,7 @@ per country. In order to do the necessary reshaping we simply do:
 >>> from bi_pcpg.utils.utils import reshape_year_matrices_to_time_series_matrices
     timeseries_dataset = reshape_year_matrices_to_time_series_matrices(dataset)
 
-Note that :func:`bi_pcpg.utils.utils.reshape_year_matrices_to_time_series_matrices` converts this into a list of
+Note that :func:`~bi_pcpg.utils.utils.reshape_year_matrices_to_time_series_matrices` converts this into a list of
 **country** matrices, i.e. the rows of the matrices in ``dataset``, not the columns. We therefore get:
 
 .. code-block:: python
@@ -235,7 +235,7 @@ we then compute the *average influence* values among the variables in the system
     >>> pcpg.avg_influence_matrix
         # TODO: print avg_influence_matrix
 
-After computing the ``avg_influence_matrix`` we are able to generate the a ``netowrkx.DiGraph`` object of our PCPG
+After computing the ``avg_influence_matrix`` we are able to generate the a ``networkx.DiGraph`` object of our PCPG
 network by doing:
 
 .. code-block:: python
@@ -263,7 +263,7 @@ To obtain a ``pandas.DataFrame`` containing the edge bootstrap values we simply 
         bootstrap_values = get_bootstrap_values(timeseries_dataset, num_replicates=1000)
 
 where ``num_replicates`` is the number of replicates to be generated in the boostrap procedure. As when computing
-correlations for the average correlation matrix (see :ref:`_correlations_info`), a ``critical_value`` attribute could
+correlations for the average correlation matrix (see :ref:`correlations_info`), a ``critical_value`` attribute could
 also be passed to this function to filter correlations based on a T-test.
 
 Note ``bootstrap_values`` is a ``pandas.DataFrame`` containing the bootstrap values of the *directed* edges in the PCPG

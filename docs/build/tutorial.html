@@ -6,32 +6,41 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tutorial &#8212; biPCPG 0.1.0 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/language_data.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Reference" href="reference.html" />
-    <link rel="prev" title="Welcome to biPCPG’s documentation!" href="index.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <link rel="prev" title="Welcome to biPCPG’s documentation!" href="index.html" /> 
   </head><body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="reference.html" title="Reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to biPCPG’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">biPCPG 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tutorial</a></li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="tutorial">
@@ -279,7 +288,7 @@ per country. In order to do the necessary reshaping we simply do:</p>
 <span class="go">    timeseries_dataset = reshape_year_matrices_to_time_series_matrices(dataset)</span>
 </pre></div>
 </div>
-<p>Note that <code class="xref py py-func docutils literal notranslate"><span class="pre">bi_pcpg.utils.utils.reshape_year_matrices_to_time_series_matrices()</span></code> converts this into a list of
+<p>Note that <code class="xref py py-func docutils literal notranslate"><span class="pre">reshape_year_matrices_to_time_series_matrices()</span></code> converts this into a list of
 <strong>country</strong> matrices, i.e. the rows of the matrices in <code class="docutils literal notranslate"><span class="pre">dataset</span></code>, not the columns. We therefore get:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">timeseries_dataset</span>
 <span class="go">    [array([[1.2,  3. , 1. , 5.4],</span>
@@ -377,7 +386,7 @@ attribute</p>
 <span class="go">    # TODO: print avg_influence_matrix</span>
 </pre></div>
 </div>
-<p>After computing the <code class="docutils literal notranslate"><span class="pre">avg_influence_matrix</span></code> we are able to generate the a <code class="docutils literal notranslate"><span class="pre">netowrkx.DiGraph</span></code> object of our PCPG
+<p>After computing the <code class="docutils literal notranslate"><span class="pre">avg_influence_matrix</span></code> we are able to generate the a <code class="docutils literal notranslate"><span class="pre">networkx.DiGraph</span></code> object of our PCPG
 network by doing:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pcpg</span><span class="o">.</span><span class="n">create_network</span><span class="p">()</span>
 </pre></div>
@@ -399,7 +408,7 @@ variable in the complementary set of variables.</p>
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">num_replicates</span></code> is the number of replicates to be generated in the boostrap procedure. As when computing
-correlations for the average correlation matrix (see <span class="xref std std-ref">_correlations_info</span>), a <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> attribute could
+correlations for the average correlation matrix (see <a class="reference internal" href="#correlations-info"><span class="std std-ref">Computing the average correlation matrix</span></a>), a <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> attribute could
 also be passed to this function to filter correlations based on a T-test.</p>
 <p>Note <code class="docutils literal notranslate"><span class="pre">bootstrap_values</span></code> is a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing the bootstrap values of the <em>directed</em> edges in the PCPG
 network. For a given entry in this dataframe, the row index is the edge’s source and the column index is the edge’s
@@ -413,43 +422,36 @@ by doing:</p>
 </div>
 
 
+            <div class="clearer"></div>
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">biPCPG</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#dataset-structure">Dataset structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#computing-the-average-correlation-matrix">Computing the average correlation matrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#computing-the-pcpg-network">Computing the PCPG network</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#computing-edge-bootstrap-values">Computing edge bootstrap values</a></li>
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tutorial</a><ul>
+<li><a class="reference internal" href="#dataset-structure">Dataset structure</a></li>
+<li><a class="reference internal" href="#computing-the-average-correlation-matrix">Computing the average correlation matrix</a></li>
+<li><a class="reference internal" href="#computing-the-pcpg-network">Computing the PCPG network</a></li>
+<li><a class="reference internal" href="#computing-edge-bootstrap-values">Computing edge bootstrap values</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
 </ul>
 
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Welcome to biPCPG’s documentation!</a></li>
-      <li>Next: <a href="reference.html" title="next chapter">Reference</a></li>
-  </ul></li>
-</ul>
-</div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to biPCPG’s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="reference.html"
+                        title="next chapter">Reference</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/tutorial.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -460,32 +462,29 @@ by doing:</p>
     </div>
 </div>
 <script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2021, Carlos Saenz de Pipaon.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/tutorial.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="reference.html" title="Reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to biPCPG’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">biPCPG 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tutorial</a></li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Carlos Saenz de Pipaon.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
   </body>
 </html>
