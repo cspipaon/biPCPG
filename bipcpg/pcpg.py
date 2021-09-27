@@ -238,7 +238,7 @@ class PCPG:
         :param dict/pandas.DataFrame attr_data: pd.DataFrame or dictionary containing edge attribute values.
         :param str attr_name: Name of attribute to be added to edges.
 
-        .. :notes::
+        .. note::
             If attr_data is a ``pandas.DataFrame``, rows should indicate the tail of the edge (i.e. the origin node)
             and columns should indicate the head of the edge (i.e. the target node).
             If attr_data is a dictionary, keys should be tuples of the form (origin_node, target_node).
@@ -262,7 +262,7 @@ class PCPG:
         :param dict/pandas.DataFrame attr_data: ``pandas.Series`` or dictionary containing node attribute values.
         :param str attr_name: Name of attribute added.
 
-        .. :notes::
+        .. note::
             If ``edge_attribute_values`` is a ``pandas.Series``, its index should contain the node and its values the
             attribute data.
             If ``edge_attribute_values`` is a dictionary, keys should be nodes and values should be attribute data.

@@ -129,6 +129,12 @@ variables.</p></li>
 </ul>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If attr_data is a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>, rows should indicate the tail of the edge (i.e. the origin node)
+and columns should indicate the head of the edge (i.e. the target node).
+If attr_data is a dictionary, keys should be tuples of the form (origin_node, target_node).</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -143,6 +149,12 @@ variables.</p></li>
 </ul>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">edge_attribute_values</span></code> is a <code class="docutils literal notranslate"><span class="pre">pandas.Series</span></code>, its index should contain the node and its values the
+attribute data.
+If <code class="docutils literal notranslate"><span class="pre">edge_attribute_values</span></code> is a dictionary, keys should be nodes and values should be attribute data.</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
