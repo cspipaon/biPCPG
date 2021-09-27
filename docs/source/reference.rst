@@ -13,6 +13,7 @@ PCPG class
 
 Correlations and Bootstrap Functions
 ------------------------------------
+
 ```eval_rst
 .. automodule:: correlation
     :members: get_correlation_matrices_for_list_of_matrices
@@ -25,7 +26,6 @@ Correlations and Bootstrap Functions
 ```
 
 ```eval_rst
-
 .. automodule:: bootstrap
     :members: construct_corr_matrix_replicates_from_time_series_matrices
               get_boostrap_values
