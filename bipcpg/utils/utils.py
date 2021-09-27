@@ -1,43 +1,9 @@
-import pickle
 from typing import List, Iterable, Iterator, Optional
 
 import networkx as nx
 import numpy as np
 import pandas as pd
 from functools import reduce
-import json
-
-
-def write_json(object, path: str) -> None:
-    """
-    Serialize object into a json file.
-    :param object: Object to be serialised.
-    :param str path: Path to save file to
-    :return: None
-    """
-    with open(path, 'w', encoding='utf-8') as f:
-        json.dump(object, f, ensure_ascii=False, indent=4)
-
-
-def load_json(path: str) -> None:
-    """
-    Load json file.
-    :param str path: Path of file to load.
-    :return: None
-    """
-    with open(path) as infile:
-        d = json.load(infile)
-    return d
-
-
-def load_pickle(path):
-    """function to load pickle from a file.
-        path: the name you want write to the file"""
-
-    with open(path, 'rb') as fp:
-        object = pickle.load(fp)
-
-    return object
 
 
 def transform_3level_nested_dict_into_stacked_df(nested_dict: dict,
@@ -108,7 +74,7 @@ def get_degrees_df(G: nx.DiGraph) -> pd.DataFrame:
     """
     Get a :class:`pandas.DataFrame` containing the degree, in-degree and out-degree information of the nodes in ``G``.
 
-    :param :class:`networkx.DiGraph` G: Directed network.
+    :param `networkx.DiGraph` G: Directed network.
     :return: Table containing degree information
     :rtype: :class:`pandas.DataFrame`
 
@@ -132,34 +98,35 @@ def get_degrees_df(G: nx.DiGraph) -> pd.DataFrame:
 
 def reshape_year_matrices_to_time_series_matrices(list_yearly_matrices: List[np.ndarray]) -> List[np.ndarray]:
     """
-    For a list of :class:`np.ndarray`s, switch the first dimension (list entries) for the second dimension (axis 0) of
-    matrices in the list.
+    For a list of :class:`numpy.ndarray` s, switch the first dimension (list entries) for the second dimension (axis 0)
+    of matrices in the list.
 
-    :param list list_yearly_matrices: list of 2-dimensional :class:`np.ndarray`s indexed over time. Each matrix has one
-        set of variables of the bipartite dataset along axis 0 (rows) and the other set of variables in the bipartite
-        dataset along axis 1 (columns).
+    :param list list_yearly_matrices: list of 2-dimensional :class:`numpy.ndarray` s indexed over time. Each matrix has
+        one set of variables of the bipartite dataset along axis 0 (rows) and the other set of variables in the
+        bipartite dataset along axis 1 (columns).
     :return: list of 2-dimensional :class:`numpy.ndarray` indexed over the elements in the rows of the matrices in
         ``list_yearly_matrices``. Axis 0 (rows) of each matrix is now indexed over time, i.e. the dimension of the
         elements in ``list_yearly_matrices``.
     :rtype: list
 
-    .. :example:
-    This can be used transform a list of matrices (one per year) into a list of time series matrices.
-    Say we have a list ``my_list`` containing matrices (one per year) with the exports every country (rows) made for
-    every product (columns). We can then transform this into a list of matrices (one per country) with time series
-    observations along the rows and products along the columns.
+    .. example:
+        This can be used transform a list of matrices (one per year) into a list of time series matrices.
+        Say we have a list ``my_list`` containing matrices (one per year) with the exports every country (rows) made for
+        every product (columns). We can then transform this into a list of matrices (one per country) with time series
+        observations along the rows and products along the columns.
 
-    ``my_list = [np.array([[1,2],[3,4]]), np.array([[5,6],[7,8]]), np.array([[9,10],[11,12]])]
-    my_list_transformed = transform_year_matrices_to_time_series_matrices(my_list)
-    my_list_transformed
-    [
-    array([[ 1,  2],
-           [ 5,  6],
-           [ 9, 10]]),
-    array([[ 3,  4],
-           [ 7,  8],
-           [11, 12]])
-    ]``
+        .. codeblock:
+            my_list = [np.array([[1,2],[3,4]]), np.array([[5,6],[7,8]]), np.array([[9,10],[11,12]])]
+            my_list_transformed = transform_year_matrices_to_time_series_matrices(my_list)
+            my_list_transformed
+            [
+            array([[ 1,  2],
+                   [ 5,  6],
+                   [ 9, 10]]),
+            array([[ 3,  4],
+                   [ 7,  8],
+                   [11, 12]])
+            ]
     """
 
     stacked = np.stack(list_yearly_matrices, axis=1)

@@ -30,9 +30,9 @@ class PCPG:
     the network's planarity is not broken by adding the edge.
 
     :ivar avg_influence_matrix: Matrix containing average influence values between pairs of variables.
-    :ivar avg_influence_df: ``pandas.DataFrame`` containing average influence values between pairs of variables.
-    :ivar influence_df: ``pandas.DataFrame`` containing influence values between pairs of variables.
-    :ivar partial_corr_df: Multi-index ``pandas.DataFrame`` partial correlation values between triple of
+    :ivar avg_influence_df: :class:`pandas.DataFrame` containing average influence values between pairs of variables.
+    :ivar influence_df: :class:`pandas.DataFrame` containing influence values between pairs of variables.
+    :ivar partial_corr_df: Multi-index :class:`pandas.DataFrame` partial correlation values between triple of
         variables.
     :ivar network: the PCPG network generated (a ``networkx.DiGraph`` directed graph object).
     :ivar nodes: Nodes in PCPG :attr:`network`.
@@ -239,7 +239,7 @@ class PCPG:
         :param str attr_name: Name of attribute to be added to edges.
 
         .. note::
-            If attr_data is a ``pandas.DataFrame``, rows should indicate the tail of the edge (i.e. the origin node)
+            If attr_data is a :class:`pandas.DataFrame`, rows should indicate the tail of the edge (i.e. the origin node)
             and columns should indicate the head of the edge (i.e. the target node).
             If attr_data is a dictionary, keys should be tuples of the form (origin_node, target_node).
 

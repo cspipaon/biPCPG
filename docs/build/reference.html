@@ -102,9 +102,9 @@ the network’s planarity is not broken by adding the edge.</p>
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>avg_influence_matrix</strong> – Matrix containing average influence values between pairs of variables.</p></li>
-<li><p><strong>avg_influence_df</strong> – <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing average influence values between pairs of variables.</p></li>
-<li><p><strong>influence_df</strong> – <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing influence values between pairs of variables.</p></li>
-<li><p><strong>partial_corr_df</strong> – Multi-index <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> partial correlation values between triple of
+<li><p><strong>avg_influence_df</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing average influence values between pairs of variables.</p></li>
+<li><p><strong>influence_df</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing influence values between pairs of variables.</p></li>
+<li><p><strong>partial_corr_df</strong> – Multi-index <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> partial correlation values between triple of
 variables.</p></li>
 <li><p><strong>network</strong> – the PCPG network generated (a <code class="docutils literal notranslate"><span class="pre">networkx.DiGraph</span></code> directed graph object).</p></li>
 <li><p><strong>nodes</strong> – Nodes in PCPG <code class="xref py py-attr docutils literal notranslate"><span class="pre">network</span></code>.</p></li>
@@ -132,7 +132,7 @@ variables.</p></li>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If attr_data is a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>, rows should indicate the tail of the edge (i.e. the origin node)
+<p>If attr_data is a <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>, rows should indicate the tail of the edge (i.e. the origin node)
 and columns should indicate the head of the edge (i.e. the target node).
 If attr_data is a dictionary, keys should be tuples of the form (origin_node, target_node).</p>
 </div>
@@ -361,15 +361,15 @@ the source of an edge is its row index and the target of the edge is its column 
 <dt id="utils.utils.get_degrees_df">
 <code class="sig-prename descclassname">utils.utils.</code><code class="sig-name descname">get_degrees_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">G</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.utils.get_degrees_df" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing the degree, in-degree and out-degree information of the nodes in <code class="docutils literal notranslate"><span class="pre">G</span></code>.</p>
-<p>:param <code class="xref py py-class docutils literal notranslate"><span class="pre">networkx.DiGraph</span></code> G: Directed network.
-:return: Table containing degree information
-:rtype: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>G</strong> (<em>networkx.classes.digraph.DiGraph</em>) – </p>
+<dd class="field-odd"><p><strong>G</strong> (<em>networkx.DiGraph</em>) – Directed network.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>pandas.core.frame.DataFrame</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Table containing degree information</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -395,13 +395,13 @@ with a smaller index.</p>
 <dl class="py function">
 <dt id="utils.utils.reshape_year_matrices_to_time_series_matrices">
 <code class="sig-prename descclassname">utils.utils.</code><code class="sig-name descname">reshape_year_matrices_to_time_series_matrices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_yearly_matrices</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.utils.reshape_year_matrices_to_time_series_matrices" title="Permalink to this definition">¶</a></dt>
-<dd><p>For a list of :class:<a href="#id1"><span class="problematic" id="id2">`</span></a>np.ndarray`s, switch the first dimension (list entries) for the second dimension (axis 0) of
-matrices in the list.</p>
+<dd><p>For a list of <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> s, switch the first dimension (list entries) for the second dimension (axis 0)
+of matrices in the list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>list_yearly_matrices</strong> (<em>list</em>) – list of 2-dimensional :class:<a href="#id3"><span class="problematic" id="id4">`</span></a>np.ndarray`s indexed over time. Each matrix has one
-set of variables of the bipartite dataset along axis 0 (rows) and the other set of variables in the bipartite
-dataset along axis 1 (columns).</p>
+<dd class="field-odd"><p><strong>list_yearly_matrices</strong> (<em>list</em>) – list of 2-dimensional <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> s indexed over time. Each matrix has
+one set of variables of the bipartite dataset along axis 0 (rows) and the other set of variables in the
+bipartite dataset along axis 1 (columns).</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>list of 2-dimensional <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> indexed over the elements in the rows of the matrices in
@@ -412,25 +412,6 @@ elements in <code class="docutils literal notranslate"><span class="pre">list_ye
 <dd class="field-odd"><p>list</p>
 </dd>
 </dl>
-<p>This can be used transform a list of matrices (one per year) into a list of time series matrices.
-Say we have a list <code class="docutils literal notranslate"><span class="pre">my_list</span></code> containing matrices (one per year) with the exports every country (rows) made for
-every product (columns). We can then transform this into a list of matrices (one per country) with time series
-observations along the rows and products along the columns.</p>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a>my_list = [np.array([[1,2],[3,4]]), np.array([[5,6],[7,8]]), np.array([[9,10],[11,12]])]
-my_list_transformed = transform_year_matrices_to_time_series_matrices(my_list)
-my_list_transformed
-[
-array([[ 1,  2],</p>
-<blockquote>
-<div><p>[ 5,  6],
-[ 9, 10]]),</p>
-</div></blockquote>
-<dl class="simple">
-<dt>array([[ 3,  4],</dt><dd><p>[ 7,  8],
-[11, 12]])</p>
-</dd>
-</dl>
-<p>]``</p>
 </dd></dl>
 
 <dl class="py function">
@@ -471,6 +452,56 @@ keys.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>:class:pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-utils.communities_utils"></span><dl class="py function">
+<dt id="utils.communities_utils.communities_data">
+<code class="sig-prename descclassname">utils.communities_utils.</code><code class="sig-name descname">communities_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">G</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">la_kwds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.communities_utils.communities_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a community detection procedure on graph <code class="docutils literal notranslate"><span class="pre">G</span></code> and return relevant results for plotting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>G</strong> (<em>:class:nx.Graph</em>) – <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph on which to perform community detection.</p></li>
+<li><p><strong>la_kwds</strong> – keyword arguments passed on to <code class="xref py py-func docutils literal notranslate"><span class="pre">leidenalg.find_partition()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>G_igraph <code class="xref py py-class docutils literal notranslate"><span class="pre">igraph.Graph</span></code> - <cite>igraph</cite> graph object equivalent to <code class="docutils literal notranslate"><span class="pre">G</span></code>.</p></li>
+<li><p>partition <code class="xref py py-class docutils literal notranslate"><span class="pre">leidenalg.VertexPartition</span></code> - Graph partition.</p></li>
+<li><p>tup_nodes_num_nodes :py:class:tuple - <code class="docutils literal notranslate"><span class="pre">tuple</span></code> containing list of nodes sorted by community and list of
+number of nodes per community</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.communities_utils.get_igraph_network_and_partition">
+<code class="sig-prename descclassname">utils.communities_utils.</code><code class="sig-name descname">get_igraph_network_and_partition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">G</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">la_kwds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.communities_utils.get_igraph_network_and_partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain an <code class="docutils literal notranslate"><span class="pre">igraph</span></code> graph and a partition from a <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>G</strong> (<em>networkx.Graph</em>) – <cite>networkx</cite> graph to be converted into <cite>igraph</cite> graph.</p></li>
+<li><p><strong>la_kwds</strong> – keyword arguments passed on to <code class="docutils literal notranslate"><span class="pre">leidenalg.find_partition()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>partition <code class="xref py py-class docutils literal notranslate"><span class="pre">leidenalg.VertexPartition</span></code> - Graph partition.</p></li>
+<li><p>H <code class="xref py py-class docutils literal notranslate"><span class="pre">igraph.Graph</span></code> - <code class="docutils literal notranslate"><span class="pre">igraph</span></code> graph object.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
 </dd></dl>
