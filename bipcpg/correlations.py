@@ -13,9 +13,9 @@ def get_correlation_matrices_for_list_of_matrices(list_matrices: List[np.ndarray
     observations along the rows) in ``list_matrices``. If ``critical value`` is passed, each correlation matrix is
     filtered based on a statistical significance T-test where ``critical_value`` is the threshold value.
 
-    :param list list_matrices: list of 2-dimensional :class:`numpy.ndarray` containing observations along axis 0 (rows)
+    :param list list_matrices: list of 2-dimensional ``numpy.ndarray`` s containing observations along axis 0 (rows)
         and variables along axis 1 (columns).
-    :param float critical_value: Boundary of the acceptance region of the t-test performed.
+    :param float critical_value: Boundary of the acceptance region of the T-test performed.
     :return: tuple containing: (i) list of length len(list_time_series_matrices) containing correlation matrices
         displaying the correlation coefficients between the columns (axis 1) of each input matrix, and (ii) list of
         p-value matrices corresponding to each correlation matrix.
@@ -38,11 +38,11 @@ def compute_corr_matrix(matrix: np.array or pd.DataFrame, critical_value: Option
     Obtain a correlation matrix among the variables in a matrix. If ``critical value`` is passed, the correlation matrix
     is filtered based on a statistical significance T-test where ``critical_value`` is the threshold value.
 
-    :param :class:numpy.ndarray matrix: :class:`numpy.ndarray` containing time series for the values of interest with
+    :param numpy.ndarray matrix: ``numpy.ndarray`` containing time series for the values of interest with
         observations along axis 0 (rows) and variables along axis 1 (columns).
-    :param float critical_value: Boundary of the acceptance region of the t-test performed.
+    :param float critical_value: Boundary of the acceptance region of the T-test performed.
     :return: Correlation matrix displaying correlation coefficients between the columns (axis 1) of each input matrix.
-    :rtype: :class:numpy.ndarray
+    :rtype: numpy.ndarray
     """
     corr_matrix, pval_matrix = corr_pvalue_matrices(matrix)
     if critical_value is not None:
@@ -55,7 +55,7 @@ def corr_pvalue_matrices(matrix: np.ndarray) -> tuple:
     """
     Obtain a correlation matrix and p-value matrix for a matrix containing variables and observations.
 
-    :param :class:numpy.ndarray matrix: 2-dimensional numpy.ndarray containing containing observations axis 0 and
+    :param numpy.ndarray matrix: 2-dimensional numpy.ndarray containing containing observations axis 0 and
         variables along axis 1.
     :return: tuple containing correlation matrix showing correlation coefficients between columns of input matrix
         and p-value matrix showing statistical significance of correlations.

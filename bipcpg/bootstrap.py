@@ -11,15 +11,15 @@ def construct_corr_matrix_replicates_from_time_series_matrices(array_of_matrices
                                                                critical_value: Optional[float] = None):
     """
     Performs a bootstrap procedure on time series matrices to obtain correlation matrix replicates. If
-    ``critical_value`` is not None, the correlation matrices are filtered using a statistical significance t-test.
+    ``critical_value`` is not None, the correlation matrices are filtered using a statistical significance T-test.
 
-    :param :class:np.ndarray array_of_matrices: 3-dimensional ``np.ndarray`` with axis 0 representing elements of one of
+    :param numpy.ndarray array_of_matrices: 3-dimensional ``np.ndarray`` with axis 0 representing elements of one of
         the sets in the bipartite system, axis 1 representing time series observations and axis 2 representing elements
         of the remaining set in the bipartite system.
     :param int num_replicates: Number of correlation matrix replicates to be constructed
-    :param float critical_value: If passed, boundary of the acceptance region of the t-test performed.
+    :param float critical_value: If passed, boundary of the acceptance region of the T-test performed.
     :return: Array containing mean of correlation matrix replicates in each batch.
-    :rtype: :class:numpy.ndarray
+    :rtype: numpy.ndarray
     """
 
     # assert all(x.shape == array_of_matrices[0].shape for x in array_of_matrices)
@@ -64,14 +64,14 @@ def get_boostrap_values(timeseries_matrices: Iterable[np.ndarray], num_replicate
     numpy array of matrices with time series in its columns (see :ref:`dataset_info`) performs a bootstrap procedure
     that generates a total of ``num_replicates`` replicate PCPG matrices and finds the bootstrap value of each edge,
     i.e. the fraction of times the edge appears in these networks. If ``critical_value`` is not None, the replicate
-    correlation matrices generated are filtered using a statistical significance t-test.
+    correlation matrices generated are filtered using a statistical significance T-test.
 
     :param list/numpy.ndarray timeseries_matrices: Iterable containing the dataset for which the PCPG network was
         generated. This should be a list containing matrices whose columns contain observations for one of the the two
         sets of variables in a bipartite dataset.
     :param int num_replicates: Number of replicates to generate in the bootstrap procedure.
-    :param float critical_value: If passed, boundary of the acceptance region of the t-test performed.
-    :return: Pandas DataFrame containing the bootstrap values of the *directed* edges in the PCPG network. Note that
+    :param float critical_value: If passed, boundary of the acceptance region of the T-test performed.
+    :return: pandas.DataFrame containing the bootstrap values of the *directed* edges in the PCPG network. Note that
         the source of an edge is its row index and the target of the edge is its column index.
     :rtype: pandas.DataFrame
     """

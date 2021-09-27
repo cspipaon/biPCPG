@@ -14,7 +14,7 @@ class PCPG:
     """
     Class to obtain a Partial Correlation Planar Graph (PCPG) network from a correlation matrix. [1]
 
-    :param :class:pandas.DataFrame/:class:numpy.ndarray corr_matrix: Correlation matrix displaying correlations
+    :param pandas.DataFrame/numpy.ndarray corr_matrix: Correlation matrix displaying correlations
         among variables in the system.
     :param list variable_names: Names of the variables in the system. The order of this list should coincide with
         the order of rows and columns in ``corr_matrix``.
@@ -22,12 +22,12 @@ class PCPG:
     This class includes methods to perform the necessary computations and obtain a ``networkx.Graph`` network
     object. The PCPG algorithm consists in the following steps:
 
-        #. find the *Average influence* (AI) between every *ordered* pair of variables in the system (in this
-        case those in the correlation matrix),
-        #. list the AIs in order from largest to smallest,
-        #. iterate through the list and add a *directed* edge corresponding to the pair of variables of the
-        AI value in that position **if and only if** (i) the reversed edge is not already in the network and (ii)
-        the network's planarity is not broken by adding the edge.
+    1. find the *Average influence* (AI) between every *ordered* pair of variables in the system (in this
+    case those in the correlation matrix),
+    2. list the AIs in order from largest to smallest,
+    3. iterate through the list and add a *directed* edge corresponding to the pair of variables of the
+    AI value in that position **if and only if** (i) the reversed edge is not already in the network and (ii)
+    the network's planarity is not broken by adding the edge.
 
     :ivar avg_influence_matrix: Matrix containing average influence values between pairs of variables.
     :ivar avg_influence_df: ``pandas.DataFrame`` containing average influence values between pairs of variables.
@@ -35,6 +35,7 @@ class PCPG:
     :ivar partial_corr_df: Multi-index ``pandas.DataFrame`` partial correlation values between triple of
         variables.
     :ivar network: the PCPG network generated (a ``networkx.DiGraph`` directed graph object).
+    :ivar nodes: Nodes in PCPG :attr:`network`.
 
     References
     ----------
@@ -76,6 +77,7 @@ class PCPG:
         self.influence_df = None  # multi-index levels are x, z variables; columns are y variables
         self.partial_corr_df = None  # multi-index levels are x, z variables; columns are y variables
         self.network = None
+        self.nodes = None
 
     def compute_avg_influence_matrix(self):
         """
@@ -171,7 +173,7 @@ class PCPG:
 
     def create_network(self):
         """
-        Create PCPG a :class:nx.DiGraph network with :attr:`nodes`: and edges found following the PCPG algorithm.
+        Create PCPG a ``networkx.DiGraph`` object with :attr:`nodes`: and edges found following the PCPG algorithm.
 
         :return: None
 
@@ -233,11 +235,11 @@ class PCPG:
         """
         Adds data for single attribute to edges in :attr:`network`.
 
-        :param dict/:class:pd.DataFrame attr_data: pd.DataFrame or dictionary containing edge attribute values.
+        :param dict/pandas.DataFrame attr_data: pd.DataFrame or dictionary containing edge attribute values.
         :param str attr_name: Name of attribute to be added to edges.
 
-        .. :note:
-            If attr_data is a :class:pandas.DataFrame, rows should indicate the tail of the edge (i.e. the origin node)
+        .. :note::
+            If attr_data is a ``pandas.DataFrame``, rows should indicate the tail of the edge (i.e. the origin node)
             and columns should indicate the head of the edge (i.e. the target node).
             If attr_data is a dictionary, keys should be tuples of the form (origin_node, target_node).
 
@@ -257,11 +259,11 @@ class PCPG:
         """
         Adds node attribute data to nodes in :attr:`network`.
 
-        :param dict/:class:pd.DataFrame attr_data: :class:pd.Series or dictionary containing node attribute values.
+        :param dict/pandas.DataFrame attr_data: ``pandas.Series`` or dictionary containing node attribute values.
         :param str attr_name: Name of attribute added.
 
-        .. :note:
-            If ``edge_attribute_values`` is a :class:pandas.Series, its index should contain the node and its values the
+        .. :note::
+            If ``edge_attribute_values`` is a ``pandas.Series``, its index should contain the node and its values the
             attribute data.
             If ``edge_attribute_values`` is a dictionary, keys should be nodes and values should be attribute data.
 
@@ -278,8 +280,8 @@ class PCPG:
         """
         Compute node assortativity based on ``node_attribute`` of nodes.
 
-        :param str node_attribute: Name of node attribute by which to compute assortativity.
-        :param str attr_type: Either "qual" or "quant". Indicates if attribute data is either a qualitative
+        :param str node_attribute: Name of node attribute in :attr:`network` by which to compute assortativity.
+        :param str attr_type: Either "qual" or "quant". Indicates if ``node_attribute`` data is a qualitative
             characteristic or a quantitative characteristic.
         :return: Value of calculated assortativity.
         :rtype: float
