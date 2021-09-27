@@ -53,7 +53,7 @@ exclude_patterns = []
 # a list of builtin themes.
 #
 
-html_theme = 'classic'
+html_theme = 'sphinx_rtd_theme'
 # on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
 # on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 #
