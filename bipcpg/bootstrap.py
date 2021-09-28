@@ -75,7 +75,7 @@ def get_bootstrap_values(timeseries_matrices: Iterable[np.ndarray], num_replicat
         the source of an edge is its row index and the target of the edge is its column index.
     :rtype: :class:pandas.DataFrame
     """
-    # ensure timeseries matrices is array
+    # ensure timeseries matrices is a numpy array
     if not isinstance(timeseries_matrices, np.ndarray):
         timeseries_matrices = np.array(timeseries_matrices)
 
