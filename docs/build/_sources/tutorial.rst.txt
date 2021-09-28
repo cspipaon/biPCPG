@@ -121,7 +121,7 @@ per country. In order to do the necessary reshaping we simply do:
     >>> from bi_pcpg.utils.utils import reshape_year_matrices_to_time_series_matrices
     ... timeseries_dataset = reshape_year_matrices_to_time_series_matrices(dataset)
 
-Note that :func:`~bi_pcpg.utils.utils.reshape_year_matrices_to_time_series_matrices` converts this into a list of
+Note that :func:`~utils.utils.reshape_year_matrices_to_time_series_matrices` converts this into a list of
 **country** matrices, i.e. the rows of the matrices in ``dataset``, not the columns. We therefore get:
 
 .. code-block:: python
@@ -181,10 +181,10 @@ its columns and do the following
            [-0.093738  , -0.0146205 , -0.47434725,  1.        ]])
 
 as expect from the linearity of the time series in ``timeseries_dataset``, correlation coefficients are all equal to
-one. It is important to note that ``get_correlation_matrices_for_list_of_matrices`` computes the correlations among
-the **columns** of the matrices in the input list. Also, to filter the returned correlation matrices based on a
-statistical T-test, we can pass the desired ``critical_value`` for the p-values, for example ``0.05``, as an argument
-like this:
+one. It is important to note that :func:`~correlations.get_correlation_matrices_for_list_of_matrices` computes the
+correlations among the **columns** of the matrices in the input list. Also, to filter the returned correlation matrices
+based on a statistical T-test, we can pass the desired ``critical_value`` for the p-values, for example ``0.05``, as an
+argument like this:
 
 .. code-block:: python
 
@@ -226,7 +226,7 @@ attribute
     >>> from bi_pcpg.pcpg import PCPG
     ... pcpg = PCPG(avg_correlation_matrix)
 
-we then compute the *average influence* values among the variables in the system
+we then compute the *average influence* (see :ref:`theory` section) values among the variables in the system
 
 .. code-block:: python
 

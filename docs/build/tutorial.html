@@ -17,8 +17,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Partial Correlation Planar Algorithm" href="pcpg_math.html" />
-    <link rel="prev" title="Welcome to biPCPG’s documentation!" href="index.html" /> 
+    <link rel="next" title="Code documentation" href="code_docs.html" />
+    <link rel="prev" title="biPCPG" href="README.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,6 +38,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">biPCPG</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dataset-structure">Dataset structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#computing-the-average-correlation-matrix">Computing the average correlation matrix</a></li>
@@ -45,9 +46,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#computing-edge-bootstrap-values">Computing edge bootstrap values</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pcpg_math.html">Partial Correlation Planar Algorithm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pcpg_math.html#references">References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_docs.html">Code documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theory.html">Theory</a></li>
 </ul>
 
         </div>
@@ -319,7 +319,7 @@ per country. In order to do the necessary reshaping we simply do:</p>
 <span class="gp">... </span><span class="n">timeseries_dataset</span> <span class="o">=</span> <span class="n">reshape_year_matrices_to_time_series_matrices</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Note that <code class="xref py py-func docutils literal notranslate"><span class="pre">reshape_year_matrices_to_time_series_matrices()</span></code> converts this into a list of
+<p>Note that <a class="reference internal" href="code_docs.html#utils.utils.reshape_year_matrices_to_time_series_matrices" title="utils.utils.reshape_year_matrices_to_time_series_matrices"><code class="xref py py-func docutils literal notranslate"><span class="pre">reshape_year_matrices_to_time_series_matrices()</span></code></a> converts this into a list of
 <strong>country</strong> matrices, i.e. the rows of the matrices in <code class="docutils literal notranslate"><span class="pre">dataset</span></code>, not the columns. We therefore get:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">timeseries_dataset</span>
 <span class="go">[array([[1.2,  3. , 1. , 5.4],</span>
@@ -371,10 +371,10 @@ its columns and do the following</p>
 </pre></div>
 </div>
 <p>as expect from the linearity of the time series in <code class="docutils literal notranslate"><span class="pre">timeseries_dataset</span></code>, correlation coefficients are all equal to
-one. It is important to note that <code class="docutils literal notranslate"><span class="pre">get_correlation_matrices_for_list_of_matrices</span></code> computes the correlations among
-the <strong>columns</strong> of the matrices in the input list. Also, to filter the returned correlation matrices based on a
-statistical T-test, we can pass the desired <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> for the p-values, for example <code class="docutils literal notranslate"><span class="pre">0.05</span></code>, as an argument
-like this:</p>
+one. It is important to note that <a class="reference internal" href="code_docs.html#correlations.get_correlation_matrices_for_list_of_matrices" title="correlations.get_correlation_matrices_for_list_of_matrices"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_correlation_matrices_for_list_of_matrices()</span></code></a> computes the
+correlations among the <strong>columns</strong> of the matrices in the input list. Also, to filter the returned correlation matrices
+based on a statistical T-test, we can pass the desired <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> for the p-values, for example <code class="docutils literal notranslate"><span class="pre">0.05</span></code>, as an
+argument like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">filtered_correlation_matrices</span> <span class="o">=</span> <span class="n">get_correlation_matrices_for_list_of_matrices</span><span class="p">(</span><span class="n">timeseries_dataset</span><span class="p">,</span>
 <span class="gp">... </span>                                                                              <span class="n">critical_value</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
 </pre></div>
@@ -410,7 +410,7 @@ attribute</p>
 <span class="gp">... </span><span class="n">pcpg</span> <span class="o">=</span> <span class="n">PCPG</span><span class="p">(</span><span class="n">avg_correlation_matrix</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>we then compute the <em>average influence</em> values among the variables in the system</p>
+<p>we then compute the <em>average influence</em> (see <a class="reference internal" href="theory.html#theory"><span class="std std-ref">Theory</span></a> section) values among the variables in the system</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pcpg</span><span class="o">.</span><span class="n">compute_avg_influence_matrix</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -457,8 +457,8 @@ by doing:</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to biPCPG’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pcpg_math.html" class="btn btn-neutral float-right" title="Partial Correlation Planar Algorithm" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="README.html" class="btn btn-neutral float-left" title="biPCPG" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="code_docs.html" class="btn btn-neutral float-right" title="Code documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

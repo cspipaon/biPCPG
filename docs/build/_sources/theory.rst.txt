@@ -1,6 +1,8 @@
 Theory
 ======
 
+.. _theory:
+
 Partial Correlation Planar Algorithm
 ------------------------------------
 
