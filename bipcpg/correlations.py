@@ -2,27 +2,26 @@ import numpy as np
 import pandas as pd
 from scipy.special import betainc
 
-from typing import List, Tuple, Optional
+from typing import List, Optional, Iterable
 
 
-def get_correlation_matrices_for_list_of_matrices(list_matrices: List[np.ndarray],
-                                                  critical_value: Optional[float] = None) -> Tuple[
-                                                                                    List[np.ndarray], List[np.ndarray]]:
+def get_correlation_matrices_for_list_of_matrices(matrices: Iterable[np.ndarray],
+                                                  critical_value: Optional[float] = None) -> List[np.ndarray]:
     """
     Obtain a correlation matrix and p-value matrix for each matrix (containing variables along the columns and
-    observations along the rows) in ``list_matrices``. If ``critical value`` is passed, each correlation matrix is
+    observations along the rows) in ``matrices``. If ``critical value`` is passed, each correlation matrix is
     filtered based on a statistical significance T-test where ``critical_value`` is the threshold value.
 
-    :param list list_matrices: list of 2-dimensional ``numpy.ndarray`` s containing observations along axis 0 (rows)
-        and variables along axis 1 (columns).
+    :param Iterable matrices: Iterable object containing of 2-dimensional ``numpy.ndarray`` s with observations
+        along axis 0 (rows) and variables along axis 1 (columns).
     :param float critical_value: Boundary of the acceptance region of the T-test performed.
-    :return: tuple containing: (i) list of length len(list_time_series_matrices) containing correlation matrices
-        displaying the correlation coefficients between the columns (axis 1) of each input matrix, and (ii) list of
-        p-value matrices corresponding to each correlation matrix.
-    :rtype: tuple
+    :return: list of length len(list_time_series_matrices) containing correlation matrices
+        displaying the correlation coefficients between the columns (axis 1) of each input matrix
+    :rtype: list
+
     """
     list_correlation_matrices = []
-    for ts_matrix in list_matrices:
+    for ts_matrix in matrices:
         corr_matrix, pvals_matrix = corr_pvalue_matrices(ts_matrix)
 
         if critical_value is not None:

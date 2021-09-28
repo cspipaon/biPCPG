@@ -7,7 +7,7 @@ from .pcpg import PCPG
 from .correlations import compute_corr_matrix
 
 
-def construct_corr_matrix_replicates_from_time_series_matrices(array_of_matrices: np.array, num_replicates: int,
+def construct_corr_matrix_replicates_from_time_series_matrices(array_of_matrices: np.ndarray, num_replicates: int,
                                                                critical_value: Optional[float] = None):
     """
     Performs a bootstrap procedure on time series matrices to obtain correlation matrix replicates. If
@@ -57,8 +57,8 @@ def construct_corr_matrix_replicates_from_time_series_matrices(array_of_matrices
     return means_of_batches
 
 
-def get_boostrap_values(timeseries_matrices: Iterable[np.ndarray], num_replicates: int = 1_000,
-                        critical_value: Optional[float] = None) -> pd.DataFrame:
+def get_bootstrap_values(timeseries_matrices: Iterable[np.ndarray], num_replicates: int = 1_000,
+                         critical_value: Optional[float] = None) -> pd.DataFrame:
     """
     Compute bootstrap values for edges in a PCPG network. This function takes a dataset in the form of a list or
     numpy array of matrices with time series in its columns (see :ref:`dataset_info`) performs a bootstrap procedure
@@ -75,6 +75,10 @@ def get_boostrap_values(timeseries_matrices: Iterable[np.ndarray], num_replicate
         the source of an edge is its row index and the target of the edge is its column index.
     :rtype: :class:pandas.DataFrame
     """
+    # ensure timeseries matrices is array
+    if not isinstance(timeseries_matrices, np.ndarray):
+        timeseries_matrices = np.array(timeseries_matrices)
+
     # compute correlation matrix replicates for list of time series matrices
     corr_matrix_replicates = construct_corr_matrix_replicates_from_time_series_matrices(
         array_of_matrices=timeseries_matrices, num_replicates=num_replicates, critical_value=critical_value)

@@ -22,7 +22,7 @@ Bootstrap functions
 -------------------
 
 .. automodule:: bipcpg.bootstrap
-    :members: construct_corr_matrix_replicates_from_time_series_matrices, get_boostrap_values
+    :members: construct_corr_matrix_replicates_from_time_series_matrices, get_bootstrap_values
     :undoc-members:
     :show-inheritance:
 

@@ -46,7 +46,6 @@ class PCPG:
     .. [1] Kenett DY, Tumminello M, Madi A, Gur-Gershgoren G, Mantegna RN, Ben-Jacob E (2010) Dominating Clasp of the
            Financial Sector Revealed by Partial Correlation Analysis of the Stock Market. PLoS ONE 5(12): e15032.
            <https://doi.org/10.1371/journal.pone.0015032>
-
     """
 
     def __init__(self,
@@ -89,7 +88,6 @@ class PCPG:
         :attr:`avg_influence_matrix`.
 
         :return: None
-
         """
         variables = [i for i in range(len(self.nodes))]
         avg_influence_matrix = np.zeros(self.corr_matrix.shape)
@@ -123,7 +121,6 @@ class PCPG:
         these in :attr:`partial_corr_df`, :attr:`influence_df` and :attr:`avg_influence_df` respectively.
 
         :return: None
-
         """
         avg_influence_dict = {}
         partial_corr_dict = {}
@@ -180,7 +177,6 @@ class PCPG:
         Create PCPG a ``networkx.DiGraph`` object with :attr:`nodes`: and edges found following the PCPG algorithm.
 
         :return: None
-
         """
         # create a graph with nodes from variable names and no edges
         network = nx.DiGraph()
@@ -203,7 +199,6 @@ class PCPG:
 
         :return: List of edges in the PCPG network
         :rtype: list
-
         """
         # get potential edges list sorted in descending average influence order
         avg_influence_df = pd.DataFrame(self.avg_influence_matrix)
@@ -247,7 +242,6 @@ class PCPG:
             If attr_data is a :class:`pandas.DataFrame`, rows should indicate the tail of the edge (i.e. the origin node)
             and columns should indicate the head of the edge (i.e. the target node).
             If attr_data is a dictionary, keys should be tuples of the form (origin_node, target_node).
-
         """
         assert isinstance(self.network, nx.DiGraph), \
             'network object has not been created. The "create_network()" method must be called before this method'
@@ -271,7 +265,6 @@ class PCPG:
             If ``edge_attribute_values`` is a :class:`pandas.Series`, its index should contain the node and its values
             the attribute data.
             If ``edge_attribute_values`` is a :class:`dict`, keys should be nodes and values should be attribute data.
-
         """
         assert isinstance(self.network, nx.DiGraph), \
             'Network object has not been created. The "create_network()" method must be called before this method'
@@ -290,7 +283,6 @@ class PCPG:
             characteristic or a quantitative characteristic.
         :return: Value of calculated assortativity.
         :rtype: float
-
         """
         if attr_type == 'qual':
             assortativity = nx.attribute_assortativity_coefficient(self.network, node_attribute)

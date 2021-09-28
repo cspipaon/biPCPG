@@ -237,7 +237,11 @@ we then compute the *average influence* (see :ref:`theory` section) values among
 
 
     >>> pcpg.avg_influence_matrix
-        # TODO: print avg_influence_matrix
+    array([[        nan, -0.01044544, -0.02817951,  0.01193706],
+           [-0.04052413,         nan, -0.03887709,  0.01047045],
+           [-0.00396688, -0.04729008,         nan, -0.0946936 ],
+           [ 0.0182888 , -0.01188309,  0.00370091,         nan]])
+
 
 After computing the ``avg_influence_matrix`` we are able to generate the a ``networkx.DiGraph`` object of our PCPG
 network by doing:
@@ -249,7 +253,8 @@ network by doing:
 .. code-block:: python
 
     >>> pcpg.network
-        # TODO: print network object
+    <networkx.classes.digraph.DiGraph object at 0x7f9bc5559f10>
+
 
 Computing edge bootstrap values
 -------------------------------
@@ -266,7 +271,7 @@ To obtain a ``pandas.DataFrame`` containing the edge bootstrap values we simply 
     >>> from bipcpg.bootstrap import get_bootstrap_values
     ... bootstrap_values = get_bootstrap_values(timeseries_dataset, num_replicates=1000)
 
-where ``num_replicates`` is the number of replicates to be generated in the boostrap procedure. As when computing
+where ``num_replicates`` is the number of replicates to be generated in the bootstrap procedure. As when computing
 correlations for the average correlation matrix (see :ref:`correlations_info`), a ``critical_value`` attribute could
 also be passed to this function to filter correlations based on a T-test.
 

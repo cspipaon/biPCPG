@@ -415,7 +415,10 @@ attribute</p>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pcpg</span><span class="o">.</span><span class="n">avg_influence_matrix</span>
-<span class="go">    # TODO: print avg_influence_matrix</span>
+<span class="go">array([[        nan, -0.01044544, -0.02817951,  0.01193706],</span>
+<span class="go">       [-0.04052413,         nan, -0.03887709,  0.01047045],</span>
+<span class="go">       [-0.00396688, -0.04729008,         nan, -0.0946936 ],</span>
+<span class="go">       [ 0.0182888 , -0.01188309,  0.00370091,         nan]])</span>
 </pre></div>
 </div>
 <p>After computing the <code class="docutils literal notranslate"><span class="pre">avg_influence_matrix</span></code> we are able to generate the a <code class="docutils literal notranslate"><span class="pre">networkx.DiGraph</span></code> object of our PCPG
@@ -424,7 +427,7 @@ network by doing:</p>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pcpg</span><span class="o">.</span><span class="n">network</span>
-<span class="go">    # TODO: print network object</span>
+<span class="go">&lt;networkx.classes.digraph.DiGraph object at 0x7f9bc5559f10&gt;</span>
 </pre></div>
 </div>
 </div>
@@ -439,7 +442,7 @@ variable in the complementary set of variables.</p>
 <span class="gp">... </span><span class="n">bootstrap_values</span> <span class="o">=</span> <span class="n">get_bootstrap_values</span><span class="p">(</span><span class="n">timeseries_dataset</span><span class="p">,</span> <span class="n">num_replicates</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>where <code class="docutils literal notranslate"><span class="pre">num_replicates</span></code> is the number of replicates to be generated in the boostrap procedure. As when computing
+<p>where <code class="docutils literal notranslate"><span class="pre">num_replicates</span></code> is the number of replicates to be generated in the bootstrap procedure. As when computing
 correlations for the average correlation matrix (see <a class="reference internal" href="#correlations-info"><span class="std std-ref">Computing the average correlation matrix</span></a>), a <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> attribute could
 also be passed to this function to filter correlations based on a T-test.</p>
 <p>Note <code class="docutils literal notranslate"><span class="pre">bootstrap_values</span></code> is a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing the bootstrap values of the <em>directed</em> edges in the PCPG

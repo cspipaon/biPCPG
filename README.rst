@@ -10,7 +10,7 @@ The biPCPG package offers three main tools:
 
 * Handling the dataset, via the ``bipcpg.utils.utils.reshape_year_matrices_to_time_series_matrices`` function.
 * Applying the PCPG, via the ``bicpg.pcpg.PCPG`` class.
-* Performing a bootstrap on the PCPG network's edges, via the ``bipcpg.boostsrap.get_boostrap_values`` function.
+* Performing a bootstrap on the PCPG network's edges, via the ``bipcpg.bootstsrap.get_bootstrap_values`` function.
 
 We recommend having a look at the `tutorial <https://bipcpg.readthedocs.io/en/latest/tutorial.html>`_ to get started.
 

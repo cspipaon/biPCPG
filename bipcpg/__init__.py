@@ -4,7 +4,7 @@ from .correlations import get_correlation_matrices_for_list_of_matrices
 from .correlations import compute_corr_matrix
 from .correlations import corr_pvalue_matrices
 
-from .bootstrap import get_boostrap_values
+from .bootstrap import get_bootstrap_values
 from .bootstrap import construct_corr_matrix_replicates_from_time_series_matrices
 
 from .utils.utils import transform_3level_nested_dict_into_stacked_df
