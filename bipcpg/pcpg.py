@@ -22,12 +22,12 @@ class PCPG:
     This class includes methods to perform the necessary computations and obtain a ``networkx.Graph`` network
     object. The PCPG algorithm consists in the following steps:
 
-    1. find the *Average influence* (AI) between every *ordered* pair of variables in the system (in this
-    case those in the correlation matrix),
-    2. list the AIs in order from largest to smallest,
-    3. iterate through the list and add a *directed* edge corresponding to the pair of variables of the
-    AI value in that position **if and only if** (i) the reversed edge is not already in the network and (ii)
-    the network's planarity is not broken by adding the edge.
+    #. find the *Average influence* (AI) between every *ordered* pair of variables in the system (in this
+       case those in the correlation matrix),
+    #. list the AIs in order from largest to smallest,
+    #. iterate through the list and add a *directed* edge corresponding to the pair of variables of the
+       AI value in that position **if and only if** (i) the reversed edge is not already in the network and (ii)
+       the network's planarity is not broken by adding the edge.
 
     :ivar avg_influence_matrix: Matrix containing average influence values between pairs of variables.
     :ivar avg_influence_df: :class:`pandas.DataFrame` containing average influence values between pairs of variables.

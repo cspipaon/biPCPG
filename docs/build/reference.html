@@ -92,12 +92,14 @@ the order of rows and columns in <code class="docutils literal notranslate"><spa
 </dl>
 <p>This class includes methods to perform the necessary computations and obtain a <code class="docutils literal notranslate"><span class="pre">networkx.Graph</span></code> network
 object. The PCPG algorithm consists in the following steps:</p>
-<p>1. find the <em>Average influence</em> (AI) between every <em>ordered</em> pair of variables in the system (in this
-case those in the correlation matrix),
-2. list the AIs in order from largest to smallest,
-3. iterate through the list and add a <em>directed</em> edge corresponding to the pair of variables of the
+<ol class="arabic simple">
+<li><p>find the <em>Average influence</em> (AI) between every <em>ordered</em> pair of variables in the system (in this
+case those in the correlation matrix),</p></li>
+<li><p>list the AIs in order from largest to smallest,</p></li>
+<li><p>iterate through the list and add a <em>directed</em> edge corresponding to the pair of variables of the
 AI value in that position <strong>if and only if</strong> (i) the reversed edge is not already in the network and (ii)
-the network’s planarity is not broken by adding the edge.</p>
+the network’s planarity is not broken by adding the edge.</p></li>
+</ol>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
@@ -418,19 +420,19 @@ every product (columns). We can then transform this into a list of matrices (one
 observations along the rows and products along the columns.</p>
 </dd>
 </dl>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]),</span>
-           <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]]),</span>
-           <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">],[</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">]])]</span>
-<span class="n">my_list_transformed</span> <span class="o">=</span> <span class="n">transform_year_matrices_to_time_series_matrices</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
-<span class="n">my_list_transformed</span>
-<span class="p">[</span>
-<span class="n">array</span><span class="p">([[</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">],</span>
-       <span class="p">[</span> <span class="mi">5</span><span class="p">,</span>  <span class="mi">6</span><span class="p">],</span>
-       <span class="p">[</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]]),</span>
-<span class="n">array</span><span class="p">([[</span> <span class="mi">3</span><span class="p">,</span>  <span class="mi">4</span><span class="p">],</span>
-       <span class="p">[</span> <span class="mi">7</span><span class="p">,</span>  <span class="mi">8</span><span class="p">],</span>
-       <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">]])</span>
-<span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]),</span>
+<span class="gp">... </span>           <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]]),</span>
+<span class="gp">... </span>           <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">],[</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">]])]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_list_transformed</span> <span class="o">=</span> <span class="n">transform_year_matrices_to_time_series_matrices</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="go">my_list_transformed</span>
+<span class="go">[</span>
+<span class="go">array([[ 1,  2],</span>
+<span class="go">       [ 5,  6],</span>
+<span class="go">       [ 9, 10]]),</span>
+<span class="go">array([[ 3,  4],</span>
+<span class="go">       [ 7,  8],</span>
+<span class="go">       [11, 12]])</span>
+<span class="go">]</span>
 </pre></div>
 </div>
 </dd></dl>

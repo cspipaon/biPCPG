@@ -117,10 +117,10 @@ def reshape_year_matrices_to_time_series_matrices(list_yearly_matrices: List[np.
 
     .. code-block:: python
 
-        my_list = [np.array([[1,2],[3,4]]),
-                   np.array([[5,6],[7,8]]),
-                   np.array([[9,10],[11,12]])]
-        my_list_transformed = transform_year_matrices_to_time_series_matrices(my_list)
+        >>> my_list = [np.array([[1,2],[3,4]]),
+        ...            np.array([[5,6],[7,8]]),
+        ...            np.array([[9,10],[11,12]])]
+        >>> my_list_transformed = transform_year_matrices_to_time_series_matrices(my_list)
         my_list_transformed
         [
         array([[ 1,  2],
