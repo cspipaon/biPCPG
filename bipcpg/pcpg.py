@@ -12,7 +12,7 @@ from utils.utils import remove_reversed_duplicates, transform_3level_nested_dict
 
 class PCPG:
     """
-    Class to obtain a Partial Correlation Planar Graph (PCPG) network from a correlation matrix. [1]
+    Class to obtain a Partial Correlation Planar Graph (PCPG) network from a correlation matrix. [1]_
 
     :param pandas.DataFrame/numpy.ndarray corr_matrix: Correlation matrix displaying correlations
         among variables in the system.
@@ -40,7 +40,7 @@ class PCPG:
     References
     ----------
 
-    .. [1]_ Kenett DY, Tumminello M, Madi A, Gur-Gershgoren G, Mantegna RN, Ben-Jacob E (2010) Dominating Clasp of the
+    .. [1] Kenett DY, Tumminello M, Madi A, Gur-Gershgoren G, Mantegna RN, Ben-Jacob E (2010) Dominating Clasp of the
            Financial Sector Revealed by Partial Correlation Analysis of the Stock Market. PLoS ONE 5(12): e15032.
            <https://doi.org/10.1371/journal.pone.0015032>
 
