@@ -11,8 +11,8 @@ Welcome to biPCPG's documentation!
    :caption: Contents:
 
    tutorial
-   pcpg_math
-   reference
+   code_docs
+   theory
 
 Indices and tables
 ==================

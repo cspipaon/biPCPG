@@ -1,5 +1,5 @@
-Reference
-=========
+Code documentation
+==================
 
 PCPG class
 ----------

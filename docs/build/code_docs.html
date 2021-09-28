@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code documentation &mdash; biPCPG 0.1.0 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Theory" href="theory.html" />
+    <link rel="prev" title="Tutorial" href="tutorial.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> biPCPG
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Code documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pcpg-class">PCPG class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-correlations">Correlations Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-bootstrap">Bootstrap functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-utils.utils">Util functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="theory.html">Theory</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">biPCPG</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Code documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/code_docs.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="code-documentation">
+<h1>Code documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pcpg-class">
+<h2>PCPG class<a class="headerlink" href="#pcpg-class" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pcpg.PCPG">
+<em class="property">class </em><code class="sig-prename descclassname">pcpg.</code><code class="sig-name descname">PCPG</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">corr_matrix</span></em>, <em class="sig-param"><span class="n">variable_names</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pcpg.PCPG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to obtain a Partial Correlation Planar Graph (PCPG) network from a correlation matrix. <a class="footnote-reference brackets" href="#id2" id="id1">1</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>corr_matrix</strong> (<em>pandas.DataFrame/numpy.ndarray</em>) – Correlation matrix displaying correlations
+among variables in the system.</p></li>
+<li><p><strong>variable_names</strong> (<em>list</em>) – Names of the variables in the system. The order of this list should coincide with
+the order of rows and columns in <code class="docutils literal notranslate"><span class="pre">corr_matrix</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>This class includes methods to perform the necessary computations and obtain a <code class="docutils literal notranslate"><span class="pre">networkx.Graph</span></code> network
+object. The PCPG algorithm consists in the following steps:</p>
+<ol class="arabic simple">
+<li><p>Find the <em>Average influence</em> (AI) between every <em>ordered</em> pair of variables in the system, i.e. those in the
+input <code class="docutils literal notranslate"><span class="pre">corr_matrix</span></code>. See <a class="reference internal" href="#pcpg.PCPG.compute_avg_influence_matrix" title="pcpg.PCPG.compute_avg_influence_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">compute_avg_influence_matrix()</span></code></a>.</p></li>
+<li><p>List the AIs in order from largest to smallest, and,</p></li>
+<li><p>Iterate through the list and add a <em>directed</em> edge corresponding to the pair of variables of the
+AI value in that position <strong>if and only if</strong> (i) the reversed edge is not already in the network and (ii)
+the network’s planarity is not broken by adding the edge. See <a class="reference internal" href="#pcpg.PCPG.create_network" title="pcpg.PCPG.create_network"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_network()</span></code></a>.</p></li>
+</ol>
+<p>See the <a class="reference external" href="https://bipcpg.readthedocs.io/en/latest/tutorial.html">tutorial</a> for further information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>avg_influence_matrix</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> containing average influence values between pairs of variables.</p></li>
+<li><p><strong>avg_influence_df</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing average influence values between pairs of variables.</p></li>
+<li><p><strong>influence_df</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing influence values between pairs of variables.</p></li>
+<li><p><strong>partial_corr_df</strong> – Multi-index <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> partial correlation values between triple of
+variables.</p></li>
+<li><p><strong>network</strong> – the PCPG network generated (a <code class="docutils literal notranslate"><span class="pre">networkx.DiGraph</span></code> directed graph object).</p></li>
+<li><p><strong>nodes</strong> – Nodes in <code class="xref py py-attr docutils literal notranslate"><span class="pre">network</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Kenett DY, Tumminello M, Madi A, Gur-Gershgoren G, Mantegna RN, Ben-Jacob E (2010) Dominating Clasp of the
+Financial Sector Revealed by Partial Correlation Analysis of the Stock Market. PLoS ONE 5(12): e15032.
+&lt;<a class="reference external" href="https://doi.org/10.1371/journal.pone.0015032">https://doi.org/10.1371/journal.pone.0015032</a>&gt;</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="pcpg.PCPG.add_edge_attribute">
+<code class="sig-name descname">add_edge_attribute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attr_data</span></em>, <em class="sig-param"><span class="n">attr_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pcpg.PCPG.add_edge_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds data for single attribute to edges in <code class="xref py py-attr docutils literal notranslate"><span class="pre">network</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attr_data</strong> (<em>dict/pandas.DataFrame</em>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code> containing edge attribute
+values.</p></li>
+<li><p><strong>attr_name</strong> (<em>str</em>) – Name of attribute to be added to edges.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If attr_data is a <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>, rows should indicate the tail of the edge (i.e. the origin node)
+and columns should indicate the head of the edge (i.e. the target node).
+If attr_data is a dictionary, keys should be tuples of the form (origin_node, target_node).</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pcpg.PCPG.add_node_attribute">
+<code class="sig-name descname">add_node_attribute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attr_data</span></em>, <em class="sig-param"><span class="n">attr_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pcpg.PCPG.add_node_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds node attribute data to nodes in <code class="xref py py-attr docutils literal notranslate"><span class="pre">network</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attr_data</strong> (<em>dict/pandas.Series</em>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code> containing node attribute values.</p></li>
+<li><p><strong>attr_name</strong> (<em>str</em>) – Name of attribute added.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">edge_attribute_values</span></code> is a <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code>, its index should contain the node and its values
+the attribute data.
+If <code class="docutils literal notranslate"><span class="pre">edge_attribute_values</span></code> is a <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, keys should be nodes and values should be attribute data.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pcpg.PCPG.compute_assortativity">
+<code class="sig-name descname">compute_assortativity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node_attribute</span></em>, <em class="sig-param"><span class="n">attr_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pcpg.PCPG.compute_assortativity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute node assortativity based on <code class="docutils literal notranslate"><span class="pre">node_attribute</span></code> of nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_attribute</strong> (<em>str</em>) – Name of node attribute in <code class="xref py py-attr docutils literal notranslate"><span class="pre">network</span></code> by which to compute assortativity.</p></li>
+<li><p><strong>attr_type</strong> (<em>str</em>) – Either “qual” or “quant”. Indicates if <code class="docutils literal notranslate"><span class="pre">node_attribute</span></code> data is a qualitative
+characteristic or a quantitative characteristic.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Value of calculated assortativity.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pcpg.PCPG.compute_avg_influence_matrix">
+<code class="sig-name descname">compute_avg_influence_matrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pcpg.PCPG.compute_avg_influence_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute average influences between every pair of variables in the system and put these in
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">avg_influence_matrix</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pcpg.PCPG.compute_influence_avg_influence_partial_corr_dfs">
+<code class="sig-name descname">compute_influence_avg_influence_partial_corr_dfs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pcpg.PCPG.compute_influence_avg_influence_partial_corr_dfs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute partial correlations, influences and average influences between all variables in the system and put
+these in <code class="xref py py-attr docutils literal notranslate"><span class="pre">partial_corr_df</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">influence_df</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">avg_influence_df</span></code> respectively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pcpg.PCPG.create_network">
+<code class="sig-name descname">create_network</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pcpg.PCPG.create_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create PCPG a <code class="docutils literal notranslate"><span class="pre">networkx.DiGraph</span></code> object with <code class="xref py py-attr docutils literal notranslate"><span class="pre">nodes</span></code>: and edges found following the PCPG algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pcpg.PCPG.find_edges">
+<code class="sig-name descname">find_edges</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pcpg.PCPG.find_edges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the edges in the PCPG network using the average influences in <code class="xref py py-attr docutils literal notranslate"><span class="pre">avg_influence_matrix</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>List of edges in the PCPG network</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-correlations">
+<span id="correlations-functions"></span><h2>Correlations Functions<a class="headerlink" href="#module-correlations" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="correlations.compute_corr_matrix">
+<code class="sig-prename descclassname">correlations.</code><code class="sig-name descname">compute_corr_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matrix</span></em>, <em class="sig-param"><span class="n">critical_value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#correlations.compute_corr_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain a correlation matrix among the variables in a matrix. If <code class="docutils literal notranslate"><span class="pre">critical</span> <span class="pre">value</span></code> is passed, the correlation matrix
+is filtered based on a statistical significance T-test where <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> is the threshold value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> (<em>numpy.ndarray</em>) – <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> containing time series for the values of interest with
+observations along axis 0 (rows) and variables along axis 1 (columns).</p></li>
+<li><p><strong>critical_value</strong> (<em>float</em>) – Boundary of the acceptance region of the T-test performed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Correlation matrix displaying correlation coefficients between the columns (axis 1) of each input matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="correlations.corr_pvalue_matrices">
+<code class="sig-prename descclassname">correlations.</code><code class="sig-name descname">corr_pvalue_matrices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matrix</span></em><span class="sig-paren">)</span><a class="headerlink" href="#correlations.corr_pvalue_matrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain a correlation matrix and p-value matrix for a matrix containing variables and observations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>matrix</strong> (<em>numpy.ndarray</em>) – 2-dimensional numpy.ndarray containing containing observations axis 0 and
+variables along axis 1.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tuple containing correlation matrix showing correlation coefficients between columns of input matrix
+and p-value matrix showing statistical significance of correlations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="correlations.get_correlation_matrices_for_list_of_matrices">
+<code class="sig-prename descclassname">correlations.</code><code class="sig-name descname">get_correlation_matrices_for_list_of_matrices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_matrices</span></em>, <em class="sig-param"><span class="n">critical_value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#correlations.get_correlation_matrices_for_list_of_matrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain a correlation matrix and p-value matrix for each matrix (containing variables along the columns and
+observations along the rows) in <code class="docutils literal notranslate"><span class="pre">list_matrices</span></code>. If <code class="docutils literal notranslate"><span class="pre">critical</span> <span class="pre">value</span></code> is passed, each correlation matrix is
+filtered based on a statistical significance T-test where <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> is the threshold value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>list_matrices</strong> (<em>list</em>) – list of 2-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> s containing observations along axis 0 (rows)
+and variables along axis 1 (columns).</p></li>
+<li><p><strong>critical_value</strong> (<em>float</em>) – Boundary of the acceptance region of the T-test performed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tuple containing: (i) list of length len(list_time_series_matrices) containing correlation matrices
+displaying the correlation coefficients between the columns (axis 1) of each input matrix, and (ii) list of
+p-value matrices corresponding to each correlation matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-bootstrap">
+<span id="bootstrap-functions"></span><h2>Bootstrap functions<a class="headerlink" href="#module-bootstrap" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="bootstrap.construct_corr_matrix_replicates_from_time_series_matrices">
+<code class="sig-prename descclassname">bootstrap.</code><code class="sig-name descname">construct_corr_matrix_replicates_from_time_series_matrices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array_of_matrices</span></em>, <em class="sig-param"><span class="n">num_replicates</span></em>, <em class="sig-param"><span class="n">critical_value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap.construct_corr_matrix_replicates_from_time_series_matrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a bootstrap procedure on time series matrices to obtain correlation matrix replicates. If
+<code class="docutils literal notranslate"><span class="pre">critical_value</span></code> is not None, the correlation matrices are filtered using a statistical significance T-test.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array_of_matrices</strong> (<em>numpy.ndarray</em>) – 3-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> with axis 0 representing elements of one of
+the sets in the bipartite system, axis 1 representing time series observations and axis 2 representing elements
+of the remaining set in the bipartite system.</p></li>
+<li><p><strong>num_replicates</strong> (<em>int</em>) – Number of correlation matrix replicates to be constructed.</p></li>
+<li><p><strong>critical_value</strong> (<em>float</em>) – If passed, boundary of the acceptance region of the T-test performed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Array containing mean of correlation matrix replicates in each batch.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="bootstrap.get_boostrap_values">
+<code class="sig-prename descclassname">bootstrap.</code><code class="sig-name descname">get_boostrap_values</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeseries_matrices</span></em>, <em class="sig-param"><span class="n">num_replicates</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">critical_value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#bootstrap.get_boostrap_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute bootstrap values for edges in a PCPG network. This function takes a dataset in the form of a list or
+numpy array of matrices with time series in its columns (see <a class="reference internal" href="tutorial.html#dataset-info"><span class="std std-ref">Dataset structure</span></a>) performs a bootstrap procedure
+that generates a total of <code class="docutils literal notranslate"><span class="pre">num_replicates</span></code> replicate PCPG matrices and finds the bootstrap value of each edge,
+i.e. the fraction of times the edge appears in these networks. If <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> is not None, the replicate
+correlation matrices generated are filtered using a statistical significance T-test.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeseries_matrices</strong> (<em>list/numpy.ndarray</em>) – Iterable containing the dataset for which the PCPG network was
+generated. This should be a list containing matrices whose columns contain observations for one of the the two
+sets of variables in a bipartite dataset.</p></li>
+<li><p><strong>num_replicates</strong> (<em>int</em>) – Number of replicates to generate in the bootstrap procedure.</p></li>
+<li><p><strong>critical_value</strong> (<em>float</em>) – If passed, boundary of the acceptance region of the T-test performed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pandas.DataFrame containing the bootstrap values of the <em>directed</em> edges in the PCPG network. Note that
+the source of an edge is its row index and the target of the edge is its column index.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>:class:pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.utils">
+<span id="util-functions"></span><h2>Util functions<a class="headerlink" href="#module-utils.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="utils.utils.get_degrees_df">
+<code class="sig-prename descclassname">utils.utils.</code><code class="sig-name descname">get_degrees_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">G</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.utils.get_degrees_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing the degree, in-degree and out-degree information of the nodes in <code class="docutils literal notranslate"><span class="pre">G</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>G</strong> (<em>networkx.DiGraph</em>) – Directed network.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing degree information.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.utils.remove_reversed_duplicates">
+<code class="sig-prename descclassname">utils.utils.</code><code class="sig-name descname">remove_reversed_duplicates</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.utils.remove_reversed_duplicates" title="Permalink to this definition">¶</a></dt>
+<dd><p>For an iterable object containing other iterables, yield items which do not have a reversed duplicate in a position
+with a smaller index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>iterable</strong> (<em>Iterable</em>) – An iterable object containing other iterables.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Inner iterables which do not have a reversed duplicate in a position with a smaller index.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Iterator[Iterable]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.utils.reshape_year_matrices_to_time_series_matrices">
+<code class="sig-prename descclassname">utils.utils.</code><code class="sig-name descname">reshape_year_matrices_to_time_series_matrices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_yearly_matrices</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.utils.reshape_year_matrices_to_time_series_matrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a list of <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> s, switch the first dimension (list entries) for the second dimension (axis 0)
+of matrices in the list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>list_yearly_matrices</strong> (<em>list</em>) – list of 2-dimensional <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> s indexed over time. Each matrix has
+one set of variables of the bipartite dataset along axis 0 (rows) and the other set of variables in the
+bipartite dataset along axis 1 (columns).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of 2-dimensional <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> indexed over the elements in the rows of the matrices in
+<code class="docutils literal notranslate"><span class="pre">list_yearly_matrices</span></code>. Axis 0 (rows) of each matrix is now indexed over time, i.e. the dimension of the
+elements in <code class="docutils literal notranslate"><span class="pre">list_yearly_matrices</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p>This can be used transform a list of matrices (one per year) into a list of time series matrices.
+Say we have a list <code class="docutils literal notranslate"><span class="pre">my_list</span></code> containing matrices (one per year) with the exports every country (rows) made for
+every product (columns). We can then transform this into a list of matrices (one per country) with time series
+observations along the rows and products along the columns.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]]),</span>
+<span class="gp">... </span>           <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]]),</span>
+<span class="gp">... </span>           <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">],[</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">]])]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_list_transformed</span> <span class="o">=</span> <span class="n">transform_year_matrices_to_time_series_matrices</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="go">my_list_transformed</span>
+<span class="go">[</span>
+<span class="go">array([[ 1,  2],</span>
+<span class="go">       [ 5,  6],</span>
+<span class="go">       [ 9, 10]]),</span>
+<span class="go">array([[ 3,  4],</span>
+<span class="go">       [ 7,  8],</span>
+<span class="go">       [11, 12]])</span>
+<span class="go">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.utils.transform_3level_nested_dict_into_df">
+<code class="sig-prename descclassname">utils.utils.</code><code class="sig-name descname">transform_3level_nested_dict_into_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nested_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.utils.transform_3level_nested_dict_into_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform a nested dictionary with three levels into a stacked <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> with a 2 level multi-index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nested_dict</strong> (<em>dict</em>) – Three level nested dictionary to be transformed.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> with 2-level multi-index. multi-index level 0 corresponds to outermost
+<code class="docutils literal notranslate"><span class="pre">nested_dict</span></code> keys, multi-index level 1 corresponds to <code class="docutils literal notranslate"><span class="pre">nested_dict</span></code> middle level keys and columns
+correspond to <code class="docutils literal notranslate"><span class="pre">nested_dict</span></code> innermost keys.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.utils.transform_3level_nested_dict_into_stacked_df">
+<code class="sig-prename descclassname">utils.utils.</code><code class="sig-name descname">transform_3level_nested_dict_into_stacked_df</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nested_dict</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.utils.transform_3level_nested_dict_into_stacked_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform a nested dictionary with three levels into a stacked <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> with a 3 level multi-index
+and a single column. If <code class="docutils literal notranslate"><span class="pre">name</span></code> is passed, set the name of the column to <code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nested_dict</strong> (<em>dict</em>) – Three level nested dictionary to be transformed.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Name of single column found in returned <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Stacked dataframe with multi-index level 0 corresponding to outermost nested_dict keys, multi-index level 1
+corresponding to nested_dict middle level keys and  multi-index level 2 corresponding to nested_dict innermost
+keys.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-utils.communities_utils"></span><dl class="py function">
+<dt id="utils.communities_utils.communities_data">
+<code class="sig-prename descclassname">utils.communities_utils.</code><code class="sig-name descname">communities_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">G</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">la_kwds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.communities_utils.communities_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a community detection procedure on graph <code class="docutils literal notranslate"><span class="pre">G</span></code> and return relevant results for plotting.</p>
+<p>:param <code class="xref py py-class docutils literal notranslate"><span class="pre">networkx.Graph</span></code> G: <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph on which to perform community detection.
+:param la_kwds: keyword arguments passed on to <code class="xref py py-func docutils literal notranslate"><span class="pre">leidenalg.find_partition()</span></code>.
+:return:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">G_igraph</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">igraph.Graph</span></code> - <cite>igraph</cite> graph object equivalent to <code class="docutils literal notranslate"><span class="pre">G</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">partition</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">leidenalg.VertexPartition</span></code> - Graph partition.</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">tup_nodes_num_nodes</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code> - a <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code> containing list of nodes sorted by community and</dt><dd><p>list of number of nodes per community.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="utils.communities_utils.get_igraph_network_and_partition">
+<code class="sig-prename descclassname">utils.communities_utils.</code><code class="sig-name descname">get_igraph_network_and_partition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">G</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">la_kwds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.communities_utils.get_igraph_network_and_partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain an <code class="docutils literal notranslate"><span class="pre">igraph</span></code> graph and a partition from a <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>G</strong> (<em>networkx.Graph</em>) – <cite>networkx</cite> graph to be converted into <cite>igraph</cite> graph.</p></li>
+<li><p><strong>la_kwds</strong> – keyword arguments passed on to <code class="docutils literal notranslate"><span class="pre">leidenalg.find_partition()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">H</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">igraph.Graph</span></code> - <code class="docutils literal notranslate"><span class="pre">igraph</span></code> graph object.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">partition</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">leidenalg.VertexPartition</span></code> - Graph partition.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorial.html" class="btn btn-neutral float-left" title="Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="theory.html" class="btn btn-neutral float-right" title="Theory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Carlos Saenz de Pipaon.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

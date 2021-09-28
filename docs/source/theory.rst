@@ -1,5 +1,8 @@
+Theory
+======
+
 Partial Correlation Planar Algorithm
-====================================
+------------------------------------
 
 The Partial Correlation Planar Graph (PCPG) [1]_ is based on *partial correlation* which measures the effect that a
 random variable :math:`Z` has on the correlation between two other random variables :math:`X` and :math:`Y`. The partial
