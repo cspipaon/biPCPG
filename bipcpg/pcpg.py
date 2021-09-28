@@ -39,6 +39,7 @@ class PCPG:
 
     References
     ----------
+
     .. [1]_ Kenett DY, Tumminello M, Madi A, Gur-Gershgoren G, Mantegna RN, Ben-Jacob E (2010) Dominating Clasp of the
            Financial Sector Revealed by Partial Correlation Analysis of the Stock Market. PLoS ONE 5(12): e15032.
            <https://doi.org/10.1371/journal.pone.0015032>
