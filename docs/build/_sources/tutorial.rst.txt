@@ -3,7 +3,7 @@
 Tutorial
 ========
 
-The :mod:`bi_pcpg` package facilitates the computation of a Partial Correlation Planar Graph (PCPG) network for datasets
+The :mod:`bipcpg` package facilitates the computation of a Partial Correlation Planar Graph (PCPG) network for datasets
 with a bipartite structure, as well as the preparation of the data for this purpose and a bootstrapping procedure to
 assess the reliability of the edges in the network. Below we give an example of how to apply these methods to
 a toy dataset consisting of countries and the products they export with the aim of obtaining a PCPG network with
@@ -44,7 +44,7 @@ for the second year :math:`y_2`:
 
 and similarly for years :math:`y_3`, :math:`y_4` and :math:`y_5`.
 
-In order to use such a dataset with the :mod:`bi_pcpg` package, we have to reshape the data such that, instead of having
+In order to use such a dataset with the :mod:`bipcpg` package, we have to reshape the data such that, instead of having
 a matrix per time index, we have a matrix per element of one of the two sets of variables. These matrices
 should have rows representing time indices and columns representing the complementary set of variables. In our
 example, instead of a matrix per year, we could reshape the dataset into either a matrix per country or a matrix per
@@ -118,7 +118,7 @@ per country. In order to do the necessary reshaping we simply do:
 
 .. code-block:: python
 
-    >>> from bi_pcpg.utils.utils import reshape_year_matrices_to_time_series_matrices
+    >>> from bipcpg.utils.utils import reshape_year_matrices_to_time_series_matrices
     ... timeseries_dataset = reshape_year_matrices_to_time_series_matrices(dataset)
 
 Note that :func:`~utils.utils.reshape_year_matrices_to_time_series_matrices` converts this into a list of
@@ -162,23 +162,24 @@ To circumvent this problem, the approach taken in the biPCPG algorithm is to com
 country and then take the element-wise average of these matrices. This yields a single average correlation matrix which
 can then be used as the input to the PCPG algorithm.
 
-In order to do this using the :mod:`bi_pcpg` package, we simply take the dataset in a format like
+In order to do this using the :mod:`bipcpg` package, we simply take the dataset in a format like
 ``timeseries_dataset``, this is a collection of matrices with observations (which form time series in our example) along
 its columns and do the following
 
 .. code-block:: python
 
-    >>> from bi_pcpg.correlations import get_correlation_matrices_for_list_of_matrices
+    >>> from bipcpg.correlations import get_correlation_matrices_for_list_of_matrices
     ... correlation_matrices = get_correlation_matrices_for_list_of_matrices(timeseries_dataset)
     ... avg_correlation_matrix = np.nanmean(correlation_matrices, axis=0)
 
 .. code-block:: python
 
     >>> avg_correlation_matrix
-    array([[ 1.        , -0.2937555 ,  0.1195425 , -0.093738  ],
-           [-0.2937555 ,  1.        ,  0.2524145 , -0.0146205 ],
-           [ 0.1195425 ,  0.2524145 ,  1.        , -0.47434725],
-           [-0.093738  , -0.0146205 , -0.47434725,  1.        ]])
+    array([[ 1.      , -0.29375 ,  0.11955 , -0.093725],
+           [-0.29375 ,  1.      ,  0.252425, -0.0146  ],
+           [ 0.11955 ,  0.252425,  1.      , -0.474325],
+           [-0.093725, -0.0146  , -0.474325,  1.      ]])
+
 
 as expect from the linearity of the time series in ``timeseries_dataset``, correlation coefficients are all equal to
 one. It is important to note that :func:`~correlations.get_correlation_matrices_for_list_of_matrices` computes the
@@ -223,7 +224,7 @@ attribute
 
 .. code-block:: python
 
-    >>> from bi_pcpg.pcpg import PCPG
+    >>> from bipcpg.pcpg import PCPG
     ... pcpg = PCPG(avg_correlation_matrix)
 
 we then compute the *average influence* (see :ref:`theory` section) values among the variables in the system
@@ -262,7 +263,7 @@ To obtain a ``pandas.DataFrame`` containing the edge bootstrap values we simply 
 
 .. code-block:: python
 
-    >>> from bi_pcpg.bootstrap import get_bootstrap_values
+    >>> from bipcpg.bootstrap import get_bootstrap_values
     ... bootstrap_values = get_bootstrap_values(timeseries_dataset, num_replicates=1000)
 
 where ``num_replicates`` is the number of replicates to be generated in the boostrap procedure. As when computing

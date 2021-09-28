@@ -76,7 +76,7 @@
              
   <div class="section" id="tutorial">
 <span id="id1"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
-<p>The <code class="xref py py-mod docutils literal notranslate"><span class="pre">bi_pcpg</span></code> package facilitates the computation of a Partial Correlation Planar Graph (PCPG) network for datasets
+<p>The <code class="xref py py-mod docutils literal notranslate"><span class="pre">bipcpg</span></code> package facilitates the computation of a Partial Correlation Planar Graph (PCPG) network for datasets
 with a bipartite structure, as well as the preparation of the data for this purpose and a bootstrapping procedure to
 assess the reliability of the edges in the network. Below we give an example of how to apply these methods to
 a toy dataset consisting of countries and the products they export with the aim of obtaining a PCPG network with
@@ -175,7 +175,7 @@ given year. Following our example, we would have the following tables or matrice
 </tbody>
 </table>
 <p>and similarly for years <span class="math notranslate nohighlight">\(y_3\)</span>, <span class="math notranslate nohighlight">\(y_4\)</span> and <span class="math notranslate nohighlight">\(y_5\)</span>.</p>
-<p>In order to use such a dataset with the <code class="xref py py-mod docutils literal notranslate"><span class="pre">bi_pcpg</span></code> package, we have to reshape the data such that, instead of having
+<p>In order to use such a dataset with the <code class="xref py py-mod docutils literal notranslate"><span class="pre">bipcpg</span></code> package, we have to reshape the data such that, instead of having
 a matrix per time index, we have a matrix per element of one of the two sets of variables. These matrices
 should have rows representing time indices and columns representing the complementary set of variables. In our
 example, instead of a matrix per year, we could reshape the dataset into either a matrix per country or a matrix per
@@ -315,11 +315,11 @@ rows represent countries and columns represent products. We would therefore have
 </ul>
 <p>Now let’s see how we can convert the <code class="docutils literal notranslate"><span class="pre">dataset</span></code> with a matrix per year into a <code class="docutils literal notranslate"><span class="pre">timeseries_dataset</span></code> with one matrix
 per country. In order to do the necessary reshaping we simply do:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bi_pcpg.utils.utils</span> <span class="kn">import</span> <span class="n">reshape_year_matrices_to_time_series_matrices</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bipcpg.utils.utils</span> <span class="kn">import</span> <span class="n">reshape_year_matrices_to_time_series_matrices</span>
 <span class="gp">... </span><span class="n">timeseries_dataset</span> <span class="o">=</span> <span class="n">reshape_year_matrices_to_time_series_matrices</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Note that <a class="reference internal" href="code_docs.html#utils.utils.reshape_year_matrices_to_time_series_matrices" title="utils.utils.reshape_year_matrices_to_time_series_matrices"><code class="xref py py-func docutils literal notranslate"><span class="pre">reshape_year_matrices_to_time_series_matrices()</span></code></a> converts this into a list of
+<p>Note that <code class="xref py py-func docutils literal notranslate"><span class="pre">reshape_year_matrices_to_time_series_matrices()</span></code> converts this into a list of
 <strong>country</strong> matrices, i.e. the rows of the matrices in <code class="docutils literal notranslate"><span class="pre">dataset</span></code>, not the columns. We therefore get:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">timeseries_dataset</span>
 <span class="go">[array([[1.2,  3. , 1. , 5.4],</span>
@@ -355,23 +355,23 @@ each exporting multiple products), so the application of the PCPG algorithm to t
 To circumvent this problem, the approach taken in the biPCPG algorithm is to compute a correlation matrix for each
 country and then take the element-wise average of these matrices. This yields a single average correlation matrix which
 can then be used as the input to the PCPG algorithm.</p>
-<p>In order to do this using the <code class="xref py py-mod docutils literal notranslate"><span class="pre">bi_pcpg</span></code> package, we simply take the dataset in a format like
+<p>In order to do this using the <code class="xref py py-mod docutils literal notranslate"><span class="pre">bipcpg</span></code> package, we simply take the dataset in a format like
 <code class="docutils literal notranslate"><span class="pre">timeseries_dataset</span></code>, this is a collection of matrices with observations (which form time series in our example) along
 its columns and do the following</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bi_pcpg.correlations</span> <span class="kn">import</span> <span class="n">get_correlation_matrices_for_list_of_matrices</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bipcpg.correlations</span> <span class="kn">import</span> <span class="n">get_correlation_matrices_for_list_of_matrices</span>
 <span class="gp">... </span><span class="n">correlation_matrices</span> <span class="o">=</span> <span class="n">get_correlation_matrices_for_list_of_matrices</span><span class="p">(</span><span class="n">timeseries_dataset</span><span class="p">)</span>
 <span class="gp">... </span><span class="n">avg_correlation_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">correlation_matrices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avg_correlation_matrix</span>
-<span class="go">array([[ 1.        , -0.2937555 ,  0.1195425 , -0.093738  ],</span>
-<span class="go">       [-0.2937555 ,  1.        ,  0.2524145 , -0.0146205 ],</span>
-<span class="go">       [ 0.1195425 ,  0.2524145 ,  1.        , -0.47434725],</span>
-<span class="go">       [-0.093738  , -0.0146205 , -0.47434725,  1.        ]])</span>
+<span class="go">array([[ 1.      , -0.29375 ,  0.11955 , -0.093725],</span>
+<span class="go">       [-0.29375 ,  1.      ,  0.252425, -0.0146  ],</span>
+<span class="go">       [ 0.11955 ,  0.252425,  1.      , -0.474325],</span>
+<span class="go">       [-0.093725, -0.0146  , -0.474325,  1.      ]])</span>
 </pre></div>
 </div>
 <p>as expect from the linearity of the time series in <code class="docutils literal notranslate"><span class="pre">timeseries_dataset</span></code>, correlation coefficients are all equal to
-one. It is important to note that <a class="reference internal" href="code_docs.html#correlations.get_correlation_matrices_for_list_of_matrices" title="correlations.get_correlation_matrices_for_list_of_matrices"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_correlation_matrices_for_list_of_matrices()</span></code></a> computes the
+one. It is important to note that <code class="xref py py-func docutils literal notranslate"><span class="pre">get_correlation_matrices_for_list_of_matrices()</span></code> computes the
 correlations among the <strong>columns</strong> of the matrices in the input list. Also, to filter the returned correlation matrices
 based on a statistical T-test, we can pass the desired <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> for the p-values, for example <code class="docutils literal notranslate"><span class="pre">0.05</span></code>, as an
 argument like this:</p>
@@ -406,7 +406,7 @@ given the very small sample size in our toy dataset.</p>
 <p>Once we have a correlation matrix, or in the example above, an average correlation matrix <code class="docutils literal notranslate"><span class="pre">avg_correlation_matrix</span></code> we
 can begin to compute the PCPG network. To do this, first instantiate the PCPG class passing the correlation matrix as an
 attribute</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bi_pcpg.pcpg</span> <span class="kn">import</span> <span class="n">PCPG</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bipcpg.pcpg</span> <span class="kn">import</span> <span class="n">PCPG</span>
 <span class="gp">... </span><span class="n">pcpg</span> <span class="o">=</span> <span class="n">PCPG</span><span class="p">(</span><span class="n">avg_correlation_matrix</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -435,7 +435,7 @@ network by doing:</p>
 columns contain observations for one of the the two sets of variables in a bipartite dataset with a matrix for each
 variable in the complementary set of variables.</p>
 <p>To obtain a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing the edge bootstrap values we simply have to do</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bi_pcpg.bootstrap</span> <span class="kn">import</span> <span class="n">get_bootstrap_values</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bipcpg.bootstrap</span> <span class="kn">import</span> <span class="n">get_bootstrap_values</span>
 <span class="gp">... </span><span class="n">bootstrap_values</span> <span class="o">=</span> <span class="n">get_bootstrap_values</span><span class="p">(</span><span class="n">timeseries_dataset</span><span class="p">,</span> <span class="n">num_replicates</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 </div>

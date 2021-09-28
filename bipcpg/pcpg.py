@@ -38,6 +38,7 @@ class PCPG:
         variables.
     :ivar network: the PCPG network generated (a ``networkx.DiGraph`` directed graph object).
     :ivar nodes: Nodes in :attr:`network`.
+    :ivar dict_var_names: :class:`dict` containing variable numbers as keys and variables names as values.
 
     References
     ----------
@@ -81,7 +82,6 @@ class PCPG:
         self.influence_df = None  # multi-index levels are x, z variables; columns are y variables
         self.partial_corr_df = None  # multi-index levels are x, z variables; columns are y variables
         self.network = None
-        self.nodes = None
 
     def compute_avg_influence_matrix(self):
         """
