@@ -39,8 +39,10 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Partial Correlation Planar Algorithm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Partial Correlation Planar Algorithm</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
 </ul>
 
@@ -90,16 +92,16 @@ correlations between <span class="math notranslate nohighlight">\(X\)</span> and
 the main direction of influence between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Z\)</span>, as influence is generally bidirectional. The
 difference between these two values are often small, which makes a bootstrap procedure necessary in order to asses the
 confidence in the direction of the average influence, as well as the average influence values.</p>
-<p>The construction algorithm of a PCPG network starts with a list of the <span class="math notranslate nohighlight">\(N(N-1)\)</span> average influence values in decreasing
-order and an empty graph of $N$ nodes and no edges, where <span class="math notranslate nohighlight">\(N\)</span> is the number of variables in the system. We then cycle
-through the sorted list, starting with the largest average influence value found, e.g. <span class="math notranslate nohighlight">\(d(J: I)\)</span>. The edge
-<span class="math notranslate nohighlight">\(I \to J\)</span> is
-included in the network if and only if the resulting network is still planar and the edge <span class="math notranslate nohighlight">\(J \to I\)</span> has not been
-included already.
-We stop adding edges if adding the next edge in the list would break the planarity of the graph. This procedure ensures
-two things: (i)  only the largest among <span class="math notranslate nohighlight">\(d(X: Z)\)</span> and <span class="math notranslate nohighlight">\(d(Z: X)\)</span> will be included in the network, and (ii) the final
-network has <span class="math notranslate nohighlight">\(3(N-2)\)</span> edges. The end result of this procedure is what we refer to as the PCPG network, <span class="math notranslate nohighlight">\(G\)</span>.
-Naturally, we also obtain the average influence <span class="math notranslate nohighlight">\(d\)</span> associated to each edge in <span class="math notranslate nohighlight">\(G\)</span>, as well as the
+<p>The construction algorithm of a PCPG network starts with a list of the <span class="math notranslate nohighlight">\(N(N-1)\)</span> average influence values in
+decreasing order and an empty graph of <span class="math notranslate nohighlight">\(N\)</span> nodes and no edges, where <span class="math notranslate nohighlight">\(N\)</span> is the number of variables in the
+system. We then cycle through the sorted list, starting with the largest average influence value found, e.g.
+<span class="math notranslate nohighlight">\(d(J: I)\)</span>. The edge <span class="math notranslate nohighlight">\(I \to J\)</span> is included in the network if and only if the resulting network is still
+planar and the edge <span class="math notranslate nohighlight">\(J \to I\)</span> has not been included already.</p>
+<p>We stop adding edges if adding the next edge in the list would break the planarity of the graph. This procedure ensures
+two things: (i)  only the largest among <span class="math notranslate nohighlight">\(d(X: Z)\)</span> and <span class="math notranslate nohighlight">\(d(Z: X)\)</span> will be included in the network, and (ii)
+the final network has <span class="math notranslate nohighlight">\(3(N-2)\)</span> edges. The end result of this procedure is what we refer to as the PCPG network,
+<span class="math notranslate nohighlight">\(G\)</span>.</p>
+<p>Naturally, we also obtain the average influence <span class="math notranslate nohighlight">\(d\)</span> associated to each edge in <span class="math notranslate nohighlight">\(G\)</span>, as well as the
 network’s adjacency matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> defined as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}A_{I, J} =
@@ -107,9 +109,8 @@ network’s adjacency matrix <span class="math notranslate nohighlight">\(\mathb
         1 &amp; \text{if} \ \text{edge} \ I \to J \in G, \\
         0 &amp; \text{otherwise}.
     \end{cases}\end{split}\]</div>
-</div>
 <div class="section" id="references">
-<h1>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h1>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Kenett DY, Tumminello M, Madi A, Gur-Gershgoren G, Mantegna RN, Ben-Jacob E (2010) Dominating Clasp of the
@@ -117,6 +118,7 @@ Financial Sector Revealed by Partial Correlation Analysis of the Stock Market. P
 &lt;<a class="reference external" href="https://doi.org/10.1371/journal.pone.0015032">https://doi.org/10.1371/journal.pone.0015032</a>&gt;</p>
 </dd>
 </dl>
+</div>
 </div>
 
 

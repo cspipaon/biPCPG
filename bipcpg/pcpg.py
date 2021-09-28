@@ -29,7 +29,7 @@ class PCPG:
        AI value in that position **if and only if** (i) the reversed edge is not already in the network and (ii)
        the network's planarity is not broken by adding the edge. See :func:`create_network`.
 
-    See the `tutorial <bipcpg.readthedocs.io/en/latest/tutorial.html>`_ for further information.
+    See the `tutorial <https://bipcpg.readthedocs.io/en/latest/tutorial.html>`_ for further information.
 
     :ivar avg_influence_matrix: :class:`numpy.ndarray` containing average influence values between pairs of variables.
     :ivar avg_influence_df: :class:`pandas.DataFrame` containing average influence values between pairs of variables.
