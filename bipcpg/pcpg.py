@@ -263,8 +263,8 @@ class PCPG:
         :param str attr_name: Name of attribute added.
 
         .. note::
-            If ``edge_attribute_values`` is a ``pandas.Series``, its index should contain the node and its values the
-            attribute data.
+            If ``edge_attribute_values`` is a :class:`pandas.Series`, its index should contain the node and its values
+            the attribute data.
             If ``edge_attribute_values`` is a :class:`dict`, keys should be nodes and values should be attribute data.
 
         """

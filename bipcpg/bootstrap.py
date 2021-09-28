@@ -73,7 +73,7 @@ def get_boostrap_values(timeseries_matrices: Iterable[np.ndarray], num_replicate
     :param float critical_value: If passed, boundary of the acceptance region of the T-test performed.
     :return: pandas.DataFrame containing the bootstrap values of the *directed* edges in the PCPG network. Note that
         the source of an edge is its row index and the target of the edge is its column index.
-    :rtype: pandas.DataFrame
+    :rtype: :class:pandas.DataFrame
     """
     # compute correlation matrix replicates for list of time series matrices
     corr_matrix_replicates = construct_corr_matrix_replicates_from_time_series_matrices(

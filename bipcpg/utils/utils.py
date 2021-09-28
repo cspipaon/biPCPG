@@ -75,7 +75,7 @@ def get_degrees_df(G: nx.DiGraph) -> pd.DataFrame:
     Get a :class:`pandas.DataFrame` containing the degree, in-degree and out-degree information of the nodes in ``G``.
 
     :param `networkx.DiGraph` G: Directed network.
-    :return: Table containing degree information
+    :return: :class:`pandas.DataFrame` containing degree information.
     :rtype: :class:`pandas.DataFrame`
 
     """
@@ -107,7 +107,7 @@ def reshape_year_matrices_to_time_series_matrices(list_yearly_matrices: List[np.
     :return: list of 2-dimensional :class:`numpy.ndarray` indexed over the elements in the rows of the matrices in
         ``list_yearly_matrices``. Axis 0 (rows) of each matrix is now indexed over time, i.e. the dimension of the
         elements in ``list_yearly_matrices``.
-    :rtype: list
+    :rtype: :class:`list`
 
     :example:
         This can be used transform a list of matrices (one per year) into a list of time series matrices.
@@ -117,7 +117,9 @@ def reshape_year_matrices_to_time_series_matrices(list_yearly_matrices: List[np.
 
     .. code-block:: python
 
-        my_list = [np.array([[1,2],[3,4]]), np.array([[5,6],[7,8]]), np.array([[9,10],[11,12]])]
+        my_list = [np.array([[1,2],[3,4]]),
+                   np.array([[5,6],[7,8]]),
+                   np.array([[9,10],[11,12]])]
         my_list_transformed = transform_year_matrices_to_time_series_matrices(my_list)
         my_list_transformed
         [
