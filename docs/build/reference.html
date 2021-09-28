@@ -82,6 +82,16 @@
 <em class="property">class </em><code class="sig-prename descclassname">pcpg.</code><code class="sig-name descname">PCPG</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">corr_matrix</span></em>, <em class="sig-param"><span class="n">variable_names</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pcpg.PCPG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class to obtain a Partial Correlation Planar Graph (PCPG) network from a correlation matrix. <a class="footnote-reference brackets" href="#id2" id="id1">1</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>corr_matrix</strong> (<em>pandas.DataFrame/numpy.ndarray</em>) – Correlation matrix displaying correlations
+among variables in the system.</p></li>
+<li><p><strong>variable_names</strong> (<em>list</em>) – Names of the variables in the system. The order of this list should coincide with
+the order of rows and columns in <code class="docutils literal notranslate"><span class="pre">corr_matrix</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
 <p>This class includes methods to perform the necessary computations and obtain a <code class="docutils literal notranslate"><span class="pre">networkx.Graph</span></code> network
 object. The PCPG algorithm consists in the following steps:</p>
 <ol class="arabic simple">
@@ -105,12 +115,6 @@ variables.</p></li>
 <li><p><strong>nodes</strong> – Nodes in <code class="xref py py-attr docutils literal notranslate"><span class="pre">network</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>corr_matrix</strong> (<em>pandas.core.frame.DataFrame</em>) – </p></li>
-<li><p><strong>variable_names</strong> (<em>Optional</em><em>[</em><em>List</em><em>]</em>) – </p></li>
-</ul>
-</dd>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
@@ -120,17 +124,6 @@ Financial Sector Revealed by Partial Correlation Analysis of the Stock Market. P
 &lt;<a class="reference external" href="https://doi.org/10.1371/journal.pone.0015032">https://doi.org/10.1371/journal.pone.0015032</a>&gt;</p>
 </dd>
 </dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>corr_matrix</strong> (<em>pandas.DataFrame/numpy.ndarray</em>) – Correlation matrix displaying correlations</p></li>
-<li><p><strong>variable_names</strong> (<em>Optional</em><em>[</em><em>List</em><em>]</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-<p>among variables in the system.
-:param list variable_names: Names of the variables in the system. The order of this list should coincide with
-the order of rows and columns in <code class="docutils literal notranslate"><span class="pre">corr_matrix</span></code>.</p>
 <dl class="py method">
 <dt id="pcpg.PCPG.add_edge_attribute">
 <code class="sig-name descname">add_edge_attribute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attr_data</span></em>, <em class="sig-param"><span class="n">attr_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pcpg.PCPG.add_edge_attribute" title="Permalink to this definition">¶</a></dt>
@@ -138,7 +131,8 @@ the order of rows and columns in <code class="docutils literal notranslate"><spa
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>attr_data</strong> (<em>dict/pandas.DataFrame</em>) – pd.DataFrame or dictionary containing edge attribute values.</p></li>
+<li><p><strong>attr_data</strong> (<em>dict/pandas.DataFrame</em>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code> containing edge attribute
+values.</p></li>
 <li><p><strong>attr_name</strong> (<em>str</em>) – Name of attribute to be added to edges.</p></li>
 </ul>
 </dd>
@@ -158,7 +152,7 @@ If attr_data is a dictionary, keys should be tuples of the form (origin_node, ta
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>attr_data</strong> (<em>dict/pandas.Series</em>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> or dictionary containing node attribute values.</p></li>
+<li><p><strong>attr_data</strong> (<em>dict/pandas.Series</em>) – <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code> containing node attribute values.</p></li>
 <li><p><strong>attr_name</strong> (<em>str</em>) – Name of attribute added.</p></li>
 </ul>
 </dd>
@@ -511,9 +505,6 @@ keys.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><p><strong>G</strong> (<em>networkx.classes.graph.Graph</em>) – </p>
 </dd>
 </dl>
 </dd></dl>

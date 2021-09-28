@@ -14,6 +14,11 @@ class PCPG:
     """
     Class to obtain a Partial Correlation Planar Graph (PCPG) network from a correlation matrix. [1]_
 
+    :param pandas.DataFrame/numpy.ndarray corr_matrix: Correlation matrix displaying correlations
+        among variables in the system.
+    :param list variable_names: Names of the variables in the system. The order of this list should coincide with
+        the order of rows and columns in ``corr_matrix``.
+
     This class includes methods to perform the necessary computations and obtain a ``networkx.Graph`` network
     object. The PCPG algorithm consists in the following steps:
 
@@ -46,15 +51,6 @@ class PCPG:
     def __init__(self,
                  corr_matrix: pd.DataFrame or np.ndarray,
                  variable_names: Optional[List] = None):
-
-        """
-
-        :param pandas.DataFrame/numpy.ndarray corr_matrix: Correlation matrix displaying correlations
-        among variables in the system.
-        :param list variable_names: Names of the variables in the system. The order of this list should coincide with
-        the order of rows and columns in ``corr_matrix``.
-
-        """
 
         if isinstance(corr_matrix, pd.DataFrame):
             assert corr_matrix.index.equals(
@@ -243,7 +239,8 @@ class PCPG:
         """
         Adds data for single attribute to edges in :attr:`network`.
 
-        :param dict/pandas.DataFrame attr_data: pd.DataFrame or dictionary containing edge attribute values.
+        :param dict/pandas.DataFrame attr_data: :class:`pandas.DataFrame` or :class:`dict` containing edge attribute
+            values.
         :param str attr_name: Name of attribute to be added to edges.
 
         .. note::
@@ -267,7 +264,7 @@ class PCPG:
         """
         Adds node attribute data to nodes in :attr:`network`.
 
-        :param dict/pandas.Series attr_data: :class:`pandas.Series` or dictionary containing node attribute values.
+        :param dict/pandas.Series attr_data: :class:`pandas.Series` or :class:`dict` containing node attribute values.
         :param str attr_name: Name of attribute added.
 
         .. note::
