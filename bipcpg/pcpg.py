@@ -14,28 +14,25 @@ class PCPG:
     """
     Class to obtain a Partial Correlation Planar Graph (PCPG) network from a correlation matrix. [1]_
 
-    :param pandas.DataFrame/numpy.ndarray corr_matrix: Correlation matrix displaying correlations
-        among variables in the system.
-    :param list variable_names: Names of the variables in the system. The order of this list should coincide with
-        the order of rows and columns in ``corr_matrix``.
-
     This class includes methods to perform the necessary computations and obtain a ``networkx.Graph`` network
     object. The PCPG algorithm consists in the following steps:
 
-    #. find the *Average influence* (AI) between every *ordered* pair of variables in the system (in this
-       case those in the correlation matrix),
-    #. list the AIs in order from largest to smallest,
-    #. iterate through the list and add a *directed* edge corresponding to the pair of variables of the
+    #. Find the *Average influence* (AI) between every *ordered* pair of variables in the system, i.e. those in the
+       input ``corr_matrix``. See :func:`compute_avg_influence_matrix`.
+    #. List the AIs in order from largest to smallest, and,
+    #. Iterate through the list and add a *directed* edge corresponding to the pair of variables of the
        AI value in that position **if and only if** (i) the reversed edge is not already in the network and (ii)
-       the network's planarity is not broken by adding the edge.
+       the network's planarity is not broken by adding the edge. See :func:`create_network`.
 
-    :ivar avg_influence_matrix: Matrix containing average influence values between pairs of variables.
+    See the `tutorial <bipcpg.readthedocs.io/en/latest/tutorial.html>`_ for further information.
+
+    :ivar avg_influence_matrix: :class:`numpy.ndarray` containing average influence values between pairs of variables.
     :ivar avg_influence_df: :class:`pandas.DataFrame` containing average influence values between pairs of variables.
     :ivar influence_df: :class:`pandas.DataFrame` containing influence values between pairs of variables.
     :ivar partial_corr_df: Multi-index :class:`pandas.DataFrame` partial correlation values between triple of
         variables.
     :ivar network: the PCPG network generated (a ``networkx.DiGraph`` directed graph object).
-    :ivar nodes: Nodes in PCPG :attr:`network`.
+    :ivar nodes: Nodes in :attr:`network`.
 
     References
     ----------
@@ -45,9 +42,19 @@ class PCPG:
            <https://doi.org/10.1371/journal.pone.0015032>
 
     """
+
     def __init__(self,
                  corr_matrix: pd.DataFrame or np.ndarray,
                  variable_names: Optional[List] = None):
+
+        """
+
+        :param pandas.DataFrame/numpy.ndarray corr_matrix: Correlation matrix displaying correlations
+        among variables in the system.
+        :param list variable_names: Names of the variables in the system. The order of this list should coincide with
+        the order of rows and columns in ``corr_matrix``.
+
+        """
 
         if isinstance(corr_matrix, pd.DataFrame):
             assert corr_matrix.index.equals(

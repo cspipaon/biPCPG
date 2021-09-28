@@ -17,7 +17,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Tutorial" href="tutorial.html" /> 
+    <link rel="prev" title="Partial Correlation Planar Algorithm" href="pcpg_math.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,6 +38,8 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pcpg_math.html">Partial Correlation Planar Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pcpg_math.html#references">References</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#pcpg-class">PCPG class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-correlations">Correlations Functions</a></li>
@@ -80,36 +82,27 @@
 <em class="property">class </em><code class="sig-prename descclassname">pcpg.</code><code class="sig-name descname">PCPG</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">corr_matrix</span></em>, <em class="sig-param"><span class="n">variable_names</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pcpg.PCPG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class to obtain a Partial Correlation Planar Graph (PCPG) network from a correlation matrix. <a class="footnote-reference brackets" href="#id2" id="id1">1</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>corr_matrix</strong> (<em>pandas.DataFrame/numpy.ndarray</em>) – Correlation matrix displaying correlations
-among variables in the system.</p></li>
-<li><p><strong>variable_names</strong> (<em>list</em>) – Names of the variables in the system. The order of this list should coincide with
-the order of rows and columns in <code class="docutils literal notranslate"><span class="pre">corr_matrix</span></code>.</p></li>
-</ul>
-</dd>
-</dl>
 <p>This class includes methods to perform the necessary computations and obtain a <code class="docutils literal notranslate"><span class="pre">networkx.Graph</span></code> network
 object. The PCPG algorithm consists in the following steps:</p>
 <ol class="arabic simple">
-<li><p>find the <em>Average influence</em> (AI) between every <em>ordered</em> pair of variables in the system (in this
-case those in the correlation matrix),</p></li>
-<li><p>list the AIs in order from largest to smallest,</p></li>
-<li><p>iterate through the list and add a <em>directed</em> edge corresponding to the pair of variables of the
+<li><p>Find the <em>Average influence</em> (AI) between every <em>ordered</em> pair of variables in the system, i.e. those in the
+input <code class="docutils literal notranslate"><span class="pre">corr_matrix</span></code>. See <a class="reference internal" href="#pcpg.PCPG.compute_avg_influence_matrix" title="pcpg.PCPG.compute_avg_influence_matrix"><code class="xref py py-func docutils literal notranslate"><span class="pre">compute_avg_influence_matrix()</span></code></a>.</p></li>
+<li><p>List the AIs in order from largest to smallest, and,</p></li>
+<li><p>Iterate through the list and add a <em>directed</em> edge corresponding to the pair of variables of the
 AI value in that position <strong>if and only if</strong> (i) the reversed edge is not already in the network and (ii)
-the network’s planarity is not broken by adding the edge.</p></li>
+the network’s planarity is not broken by adding the edge. See <a class="reference internal" href="#pcpg.PCPG.create_network" title="pcpg.PCPG.create_network"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_network()</span></code></a>.</p></li>
 </ol>
+<p>See the <a class="reference external" href="bipcpg.readthedocs.io/en/latest/tutorial.html">tutorial</a> for further information.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>avg_influence_matrix</strong> – Matrix containing average influence values between pairs of variables.</p></li>
+<li><p><strong>avg_influence_matrix</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> containing average influence values between pairs of variables.</p></li>
 <li><p><strong>avg_influence_df</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing average influence values between pairs of variables.</p></li>
 <li><p><strong>influence_df</strong> – <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing influence values between pairs of variables.</p></li>
 <li><p><strong>partial_corr_df</strong> – Multi-index <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> partial correlation values between triple of
 variables.</p></li>
 <li><p><strong>network</strong> – the PCPG network generated (a <code class="docutils literal notranslate"><span class="pre">networkx.DiGraph</span></code> directed graph object).</p></li>
-<li><p><strong>nodes</strong> – Nodes in PCPG <code class="xref py py-attr docutils literal notranslate"><span class="pre">network</span></code>.</p></li>
+<li><p><strong>nodes</strong> – Nodes in <code class="xref py py-attr docutils literal notranslate"><span class="pre">network</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Parameters</dt>
@@ -127,6 +120,17 @@ Financial Sector Revealed by Partial Correlation Analysis of the Stock Market. P
 &lt;<a class="reference external" href="https://doi.org/10.1371/journal.pone.0015032">https://doi.org/10.1371/journal.pone.0015032</a>&gt;</p>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>corr_matrix</strong> (<em>pandas.DataFrame/numpy.ndarray</em>) – Correlation matrix displaying correlations</p></li>
+<li><p><strong>variable_names</strong> (<em>Optional</em><em>[</em><em>List</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<p>among variables in the system.
+:param list variable_names: Names of the variables in the system. The order of this list should coincide with
+the order of rows and columns in <code class="docutils literal notranslate"><span class="pre">corr_matrix</span></code>.</p>
 <dl class="py method">
 <dt id="pcpg.PCPG.add_edge_attribute">
 <code class="sig-name descname">add_edge_attribute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attr_data</span></em>, <em class="sig-param"><span class="n">attr_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pcpg.PCPG.add_edge_attribute" title="Permalink to this definition">¶</a></dt>
@@ -545,7 +549,7 @@ keys.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="tutorial.html" class="btn btn-neutral float-left" title="Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pcpg_math.html" class="btn btn-neutral float-left" title="Partial Correlation Planar Algorithm" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
