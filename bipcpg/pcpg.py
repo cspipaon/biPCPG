@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import networkx as nx
 
-from bipcpg.utils.utils import remove_reversed_duplicates, transform_3level_nested_dict_into_df, \
+from .utils.utils import remove_reversed_duplicates, transform_3level_nested_dict_into_df, \
     transform_3level_nested_dict_into_stacked_df
 
 
