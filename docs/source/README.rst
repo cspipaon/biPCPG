@@ -8,9 +8,9 @@ allows its use on similar datasets containing multi-sample multivariate time ser
 
 The biPCPG package offers three main tools:
 
-* Handling the dataset, via the ``bipcpg.utils.utils.reshape_year_matrices_to_time_series_matrices`` function.
-* Applying the PCPG, via the ``bicpg.pcpg.PCPG`` class.
-* Performing a bootstrap on the PCPG network's edges, via the ``bipcpg.boostsrap.get_boostrap_values`` function.
+* Handling the dataset, via the :func:`~reshape_year_matrices_to_time_series_matrices` function.
+* Applying the PCPG, via the :class:`~PCPG` class.
+* Performing a bootstrap on the PCPG network's edges, via the :func:`~boostrap_values` function.
 
 We recommend having a look at the `tutorial <https://github.com/cspipaon/biPCPG/blob/master/docs/tutorial.rst>`_ to get
 started.
