@@ -12,7 +12,8 @@ The biPCPG package offers three main tools:
 * Applying the PCPG, via the ``bicpg.pcpg.PCPG`` class.
 * Performing a bootstrap on the PCPG network's edges, via the ``bipcpg.boostsrap.get_boostrap_values`` function.
 
-We recommend having a look at the `tutorial <https://bipcpg.readthedocs.io/en/latest/tutorial.html>`_ to get started.
+We recommend having a look at the `tutorial <https://github.com/cspipaon/biPCPG/blob/master/docs/tutorial.rst>`_ to get
+started.
 
 References
 ----------

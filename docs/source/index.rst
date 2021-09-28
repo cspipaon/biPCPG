@@ -10,7 +10,7 @@ Welcome to biPCPG's documentation!
    :maxdepth: 3
    :caption: Contents:
 
-   readme_link
+   README
    tutorial
    code_docs
    theory
