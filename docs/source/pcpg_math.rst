@@ -1,5 +1,5 @@
 Partial Correlation Planar Algorithm
-------------------------------------
+====================================
 
 The Partial Correlation Planar Graph (PCPG) [1]_ is based on *partial correlation* which measures the effect that a
 random variable :math:`Z` has on the correlation between two other random variables :math:`X` and :math:`Y`. The partial
@@ -30,15 +30,17 @@ the main direction of influence between :math:`X` and :math:`Z`, as influence is
 difference between these two values are often small, which makes a bootstrap procedure necessary in order to asses the
 confidence in the direction of the average influence, as well as the average influence values.
 
-The construction algorithm of a PCPG network starts with a list of the :math:`N(N-1)` average influence values in decreasing
-order and an empty graph of $N$ nodes and no edges, where :math:`N` is the number of variables in the system. We then cycle
-through the sorted list, starting with the largest average influence value found, e.g. :math:`d(J: I)`. The edge
-:math:`I \to J` is
-included in the network if and only if the resulting network is still planar and the edge :math:`J \to I` has not been
-included already.
+The construction algorithm of a PCPG network starts with a list of the :math:`N(N-1)` average influence values in
+decreasing order and an empty graph of :math:`N` nodes and no edges, where :math:`N` is the number of variables in the
+system. We then cycle through the sorted list, starting with the largest average influence value found, e.g.
+:math:`d(J: I)`. The edge :math:`I \to J` is included in the network if and only if the resulting network is still
+planar and the edge :math:`J \to I` has not been included already.
+
 We stop adding edges if adding the next edge in the list would break the planarity of the graph. This procedure ensures
-two things: (i)  only the largest among :math:`d(X: Z)` and :math:`d(Z: X)` will be included in the network, and (ii) the final
-network has :math:`3(N-2)` edges. The end result of this procedure is what we refer to as the PCPG network, :math:`G`.
+two things: (i)  only the largest among :math:`d(X: Z)` and :math:`d(Z: X)` will be included in the network, and (ii)
+the final network has :math:`3(N-2)` edges. The end result of this procedure is what we refer to as the PCPG network,
+:math:`G`.
+
 Naturally, we also obtain the average influence :math:`d` associated to each edge in :math:`G`, as well as the
 network's adjacency matrix :math:`\mathbf{A}` defined as
 
