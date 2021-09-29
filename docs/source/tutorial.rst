@@ -334,4 +334,4 @@ and we can check the attributes that edges have:
     We recommend reproducing the tutorial's code snippets including the product names :code:`['p1', 'p2', 'p3', 'p4']`
     as an argument :code:`variable_names` to :class:`~bipcpg.pcpg.PCPG`, which changes the ``pcpg.edges`` and
     ``pcpg.nodes`` names. We should also pass the same argument to :func:`~bipcpg.bootstrap.get_bootstrap_values` in
-    order to obtain a ``bootstrap_values`` dataframe with product names along the
+    order to obtain a ``bootstrap_values`` dataframe with product names as row and columns indices.
