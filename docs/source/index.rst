@@ -11,6 +11,7 @@ Welcome to biPCPG's documentation!
    :caption: Contents:
 
    README
+   installation
    tutorial
    code_docs
    theory

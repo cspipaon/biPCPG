@@ -405,7 +405,7 @@ given the very small sample size in our toy dataset.</p>
 <h2>Computing the PCPG network<a class="headerlink" href="#computing-the-pcpg-network" title="Permalink to this headline">¶</a></h2>
 <p>Once we have a correlation matrix, or in the example above, an average correlation matrix <code class="docutils literal notranslate"><span class="pre">avg_correlation_matrix</span></code> we
 can begin to compute the PCPG network. To do this, first instantiate the PCPG class passing the correlation matrix as an
-attribute</p>
+argument</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bipcpg.pcpg</span> <span class="kn">import</span> <span class="n">PCPG</span>
 <span class="gp">... </span><span class="n">pcpg</span> <span class="o">=</span> <span class="n">PCPG</span><span class="p">(</span><span class="n">avg_correlation_matrix</span><span class="p">)</span>
 </pre></div>
@@ -443,8 +443,25 @@ variable in the complementary set of variables.</p>
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">num_replicates</span></code> is the number of replicates to be generated in the bootstrap procedure. As when computing
-correlations for the average correlation matrix (see <a class="reference internal" href="#correlations-info"><span class="std std-ref">Computing the average correlation matrix</span></a>), a <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> attribute could
-also be passed to this function to filter correlations based on a T-test.</p>
+correlations for the average correlation matrix (see <a class="reference internal" href="#correlations-info"><span class="std std-ref">Computing the average correlation matrix</span></a>). This gives the following results, which
+may vary when repeated as the bootstrap procedure involves a <em>random</em> resampling of the rows in each matrix in
+<code class="docutils literal notranslate"><span class="pre">timeseries_dataset</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bootstrap_values</span>
+<span class="go">       0      1      2      3</span>
+<span class="go">0  0.000  0.903  0.194  0.256</span>
+<span class="go">1  0.096  0.000  0.655  0.601</span>
+<span class="go">2  0.805  0.334  0.000  0.255</span>
+<span class="go">3  0.743  0.389  0.738  0.000</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">bootstrap_values</span></code> is a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing the bootstrap values of the <em>directed</em> edges in the PCPG
+network. For a given entry in this dataframe, the row index is the edge’s source and the column index is the edge’s
+target. In our example the entry <code class="code docutils literal notranslate"><span class="pre">bootstrap_values.loc[2,</span> <span class="pre">0]</span> <span class="pre">=</span> <span class="pre">0.805</span></code> is the bootstrap value of the edge
+from product <span class="math notranslate nohighlight">\(p_3\)</span> to product <span class="math notranslate nohighlight">\(p_1\)</span>. Note the <code class="docutils literal notranslate"><span class="pre">bootstrap_values</span></code> dataframe includes the bootstrap
+values for all <em>potential</em> edges in a PCPG network generated from the <code class="docutils literal notranslate"><span class="pre">timeseries_dataset</span></code>. However, the
+<code class="docutils literal notranslate"><span class="pre">pcpg.network</span></code> found above will contain only a part of these.</p>
+<p>Also note that <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> argument could also be passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_bootstrap_values()</span></code> which would filter
+correlations based on a T-test as described in <a class="reference internal" href="#correlations-info"><span class="std std-ref">Computing the average correlation matrix</span></a>.</p>
 <p>Note <code class="docutils literal notranslate"><span class="pre">bootstrap_values</span></code> is a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing the bootstrap values of the <em>directed</em> edges in the PCPG
 network. For a given entry in this dataframe, the row index is the edge’s source and the column index is the edge’s
 target.</p>

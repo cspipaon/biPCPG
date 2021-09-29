@@ -220,7 +220,7 @@ Computing the PCPG network
 
 Once we have a correlation matrix, or in the example above, an average correlation matrix ``avg_correlation_matrix`` we
 can begin to compute the PCPG network. To do this, first instantiate the PCPG class passing the correlation matrix as an
-attribute
+argument
 
 .. code-block:: python
 
@@ -272,8 +272,28 @@ To obtain a ``pandas.DataFrame`` containing the edge bootstrap values we simply 
     ... bootstrap_values = get_bootstrap_values(timeseries_dataset, num_replicates=1000)
 
 where ``num_replicates`` is the number of replicates to be generated in the bootstrap procedure. As when computing
-correlations for the average correlation matrix (see :ref:`correlations_info`), a ``critical_value`` attribute could
-also be passed to this function to filter correlations based on a T-test.
+correlations for the average correlation matrix (see :ref:`correlations_info`). This gives the following results, which
+may vary when repeated as the bootstrap procedure involves a *random* resampling of the rows in each matrix in
+``timeseries_dataset``:
+
+.. code-block:: python
+
+    >>> bootstrap_values
+           0      1      2      3
+    0  0.000  0.903  0.194  0.256
+    1  0.096  0.000  0.655  0.601
+    2  0.805  0.334  0.000  0.255
+    3  0.743  0.389  0.738  0.000
+
+``bootstrap_values`` is a ``pandas.DataFrame`` containing the bootstrap values of the *directed* edges in the PCPG
+network. For a given entry in this dataframe, the row index is the edge's source and the column index is the edge's
+target. In our example the entry :code:`bootstrap_values.loc[2, 0] = 0.805` is the bootstrap value of the edge
+from product :math:`p_3` to product :math:`p_1`. Note the ``bootstrap_values`` dataframe includes the bootstrap
+values for all *potential* edges in a PCPG network generated from the ``timeseries_dataset``. However, the
+``pcpg.network`` found above will contain only a part of these.
+
+Also note that ``critical_value`` argument could also be passed to :func:`~get_bootstrap_values` which would filter
+correlations based on a T-test as described in :ref:`correlations_info`.
 
 Note ``bootstrap_values`` is a ``pandas.DataFrame`` containing the bootstrap values of the *directed* edges in the PCPG
 network. For a given entry in this dataframe, the row index is the edge's source and the column index is the edge's
