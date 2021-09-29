@@ -255,6 +255,19 @@ network by doing:
     >>> pcpg.network
     <networkx.classes.digraph.DiGraph object at 0x7f9bc5559f10>
 
+We can check which edges have been included in ``pcpg.network`` using ``networkx``:
+
+.. code-block:: python
+
+    >>> pcpg.network.edges()
+    OutEdgeView([(0, 1), (1, 3), (1, 2), (2, 0), (3, 0), (3, 2)])
+
+or directly via the class attribute :attr:`~pcpg.edges`:
+
+.. code-block:: python
+
+    >>> pcpg.edges
+    [(3, 0), (1, 3), (3, 2), (2, 0), (0, 1), (1, 2)]
 
 Computing edge bootstrap values
 -------------------------------
@@ -280,29 +293,45 @@ may vary when repeated as the bootstrap procedure involves a *random* resampling
 
     >>> bootstrap_values
            0      1      2      3
-    0  0.000  0.903  0.194  0.256
-    1  0.096  0.000  0.655  0.601
-    2  0.805  0.334  0.000  0.255
-    3  0.743  0.389  0.738  0.000
+    0  0.000  0.897  0.222  0.288
+    1  0.099  0.000  0.660  0.606
+    2  0.774  0.315  0.000  0.264
+    3  0.708  0.377  0.721  0.000
+
 
 ``bootstrap_values`` is a ``pandas.DataFrame`` containing the bootstrap values of the *directed* edges in the PCPG
 network. For a given entry in this dataframe, the row index is the edge's source and the column index is the edge's
-target. In our example the entry :code:`bootstrap_values.loc[2, 0] = 0.805` is the bootstrap value of the edge
+target. In our example the entry :code:`bootstrap_values.loc[2, 0] = 0.774` is the bootstrap value of the edge
 from product :math:`p_3` to product :math:`p_1`. Note the ``bootstrap_values`` dataframe includes the bootstrap
 values for all *potential* edges in a PCPG network generated from the ``timeseries_dataset``. However, the
 ``pcpg.network`` found above will contain only a part of these.
 
-Also note that ``critical_value`` argument could also be passed to :func:`~get_bootstrap_values` which would filter
-correlations based on a T-test as described in :ref:`correlations_info`.
+Also note that ``critical_value`` argument could also be passed to :func:`~bipcpg.bootstrap.get_bootstrap_values` which
+would filter correlations based on a T-test as described in :ref:`correlations_info`.
 
 Note ``bootstrap_values`` is a ``pandas.DataFrame`` containing the bootstrap values of the *directed* edges in the PCPG
 network. For a given entry in this dataframe, the row index is the edge's source and the column index is the edge's
 target.
 
-These bootstrap values could be added as an attribute to the network object in the class instance we obtained previously
-by doing:
+These bootstrap values could be added as an attribute to ``pcpg.network`` we obtained previously by doing:
 
 .. code-block:: python
 
     >>> pcpg.add_edge_attribute(attr_data=bootstrap_values, attr_name='bootstrap_value')
 
+
+and we can check the attributes that edges have:
+
+.. code-block:: python
+
+    >>> import networkx as nx
+    ... nx.get_edge_attributes(pcpg.network, 'bootstrap_value')
+    {(0, 1): 0.897, (1, 3): 0.606, (1, 2): 0.66, (2, 0): 0.774, (3, 0): 0.708, (3, 2): 0.721}
+
+
+.. tip::
+
+    We recommend reproducing the tutorial's code snippets including the product names :code:`['p1', 'p2', 'p3', 'p4']`
+    as an argument :code:`variable_names` to :class:`~bipcpg.pcpg.PCPG`, which changes the ``pcpg.edges`` and
+    ``pcpg.nodes`` names. We should also pass the same argument to :func:`~bipcpg.bootstrap.get_bootstrap_values` in
+    order to obtain a ``bootstrap_values`` dataframe with product names along the

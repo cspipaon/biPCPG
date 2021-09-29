@@ -338,7 +338,7 @@ of the remaining set in the bipartite system.</p></li>
 
 <dl class="py function">
 <dt id="bipcpg.bootstrap.get_bootstrap_values">
-<code class="sig-prename descclassname">bipcpg.bootstrap.</code><code class="sig-name descname">get_bootstrap_values</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeseries_matrices</span></em>, <em class="sig-param"><span class="n">variables_names</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">num_replicates</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">critical_value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#bipcpg.bootstrap.get_bootstrap_values" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">bipcpg.bootstrap.</code><code class="sig-name descname">get_bootstrap_values</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeseries_matrices</span></em>, <em class="sig-param"><span class="n">variable_names</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">num_replicates</span><span class="o">=</span><span class="default_value">1000</span></em>, <em class="sig-param"><span class="n">critical_value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#bipcpg.bootstrap.get_bootstrap_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute bootstrap values for edges in a PCPG network. This function takes a dataset in the form of a list or
 numpy array of matrices with time series in its columns (see <a class="reference internal" href="tutorial.html#dataset-info"><span class="std std-ref">Dataset structure</span></a>) performs a bootstrap procedure
 that generates a total of <code class="docutils literal notranslate"><span class="pre">num_replicates</span></code> replicate PCPG matrices and finds the bootstrap value of each edge,
@@ -350,7 +350,7 @@ correlation matrices generated are filtered using a statistical significance T-t
 <li><p><strong>timeseries_matrices</strong> (<em>list/numpy.ndarray</em>) – Iterable containing the dataset for which the PCPG network was
 generated. This should be a list containing 2d-:class:numpy.ndarray` s whose columns contain observations
 for one of the the two sets of variables in a bipartite dataset.</p></li>
-<li><p><strong>variables_names</strong> (<em>list</em>) – Names of variables along columns of each matrix in <code class="docutils literal notranslate"><span class="pre">timeseries_matrices</span></code></p></li>
+<li><p><strong>variable_names</strong> (<em>list</em>) – Names of variables along columns of each matrix in <code class="docutils literal notranslate"><span class="pre">timeseries_matrices</span></code></p></li>
 <li><p><strong>num_replicates</strong> (<em>int</em>) – Number of replicates to generate in the bootstrap procedure.</p></li>
 <li><p><strong>critical_value</strong> (<em>float</em>) – If passed, boundary of the acceptance region of the T-test performed.</p></li>
 </ul>

@@ -18,7 +18,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Code documentation" href="code_docs.html" />
-    <link rel="prev" title="biPCPG" href="README.html" /> 
+    <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -39,6 +39,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="README.html">biPCPG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dataset-structure">Dataset structure</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#computing-the-average-correlation-matrix">Computing the average correlation matrix</a></li>
@@ -430,6 +431,16 @@ network by doing:</p>
 <span class="go">&lt;networkx.classes.digraph.DiGraph object at 0x7f9bc5559f10&gt;</span>
 </pre></div>
 </div>
+<p>We can check which edges have been included in <code class="docutils literal notranslate"><span class="pre">pcpg.network</span></code> using <code class="docutils literal notranslate"><span class="pre">networkx</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pcpg</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">edges</span><span class="p">()</span>
+<span class="go">OutEdgeView([(0, 1), (1, 3), (1, 2), (2, 0), (3, 0), (3, 2)])</span>
+</pre></div>
+</div>
+<p>or directly via the class attribute <code class="xref py py-attr docutils literal notranslate"><span class="pre">edges</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pcpg</span><span class="o">.</span><span class="n">edges</span>
+<span class="go">[(3, 0), (1, 3), (3, 2), (2, 0), (0, 1), (1, 2)]</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="computing-edge-bootstrap-values">
 <h2>Computing edge bootstrap values<a class="headerlink" href="#computing-edge-bootstrap-values" title="Permalink to this headline">¶</a></h2>
@@ -448,27 +459,39 @@ may vary when repeated as the bootstrap procedure involves a <em>random</em> res
 <code class="docutils literal notranslate"><span class="pre">timeseries_dataset</span></code>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bootstrap_values</span>
 <span class="go">       0      1      2      3</span>
-<span class="go">0  0.000  0.903  0.194  0.256</span>
-<span class="go">1  0.096  0.000  0.655  0.601</span>
-<span class="go">2  0.805  0.334  0.000  0.255</span>
-<span class="go">3  0.743  0.389  0.738  0.000</span>
+<span class="go">0  0.000  0.897  0.222  0.288</span>
+<span class="go">1  0.099  0.000  0.660  0.606</span>
+<span class="go">2  0.774  0.315  0.000  0.264</span>
+<span class="go">3  0.708  0.377  0.721  0.000</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">bootstrap_values</span></code> is a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing the bootstrap values of the <em>directed</em> edges in the PCPG
 network. For a given entry in this dataframe, the row index is the edge’s source and the column index is the edge’s
-target. In our example the entry <code class="code docutils literal notranslate"><span class="pre">bootstrap_values.loc[2,</span> <span class="pre">0]</span> <span class="pre">=</span> <span class="pre">0.805</span></code> is the bootstrap value of the edge
+target. In our example the entry <code class="code docutils literal notranslate"><span class="pre">bootstrap_values.loc[2,</span> <span class="pre">0]</span> <span class="pre">=</span> <span class="pre">0.774</span></code> is the bootstrap value of the edge
 from product <span class="math notranslate nohighlight">\(p_3\)</span> to product <span class="math notranslate nohighlight">\(p_1\)</span>. Note the <code class="docutils literal notranslate"><span class="pre">bootstrap_values</span></code> dataframe includes the bootstrap
 values for all <em>potential</em> edges in a PCPG network generated from the <code class="docutils literal notranslate"><span class="pre">timeseries_dataset</span></code>. However, the
 <code class="docutils literal notranslate"><span class="pre">pcpg.network</span></code> found above will contain only a part of these.</p>
-<p>Also note that <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> argument could also be passed to <code class="xref py py-func docutils literal notranslate"><span class="pre">get_bootstrap_values()</span></code> which would filter
-correlations based on a T-test as described in <a class="reference internal" href="#correlations-info"><span class="std std-ref">Computing the average correlation matrix</span></a>.</p>
+<p>Also note that <code class="docutils literal notranslate"><span class="pre">critical_value</span></code> argument could also be passed to <a class="reference internal" href="code_docs.html#bipcpg.bootstrap.get_bootstrap_values" title="bipcpg.bootstrap.get_bootstrap_values"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_bootstrap_values()</span></code></a> which
+would filter correlations based on a T-test as described in <a class="reference internal" href="#correlations-info"><span class="std std-ref">Computing the average correlation matrix</span></a>.</p>
 <p>Note <code class="docutils literal notranslate"><span class="pre">bootstrap_values</span></code> is a <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> containing the bootstrap values of the <em>directed</em> edges in the PCPG
 network. For a given entry in this dataframe, the row index is the edge’s source and the column index is the edge’s
 target.</p>
-<p>These bootstrap values could be added as an attribute to the network object in the class instance we obtained previously
-by doing:</p>
+<p>These bootstrap values could be added as an attribute to <code class="docutils literal notranslate"><span class="pre">pcpg.network</span></code> we obtained previously by doing:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pcpg</span><span class="o">.</span><span class="n">add_edge_attribute</span><span class="p">(</span><span class="n">attr_data</span><span class="o">=</span><span class="n">bootstrap_values</span><span class="p">,</span> <span class="n">attr_name</span><span class="o">=</span><span class="s1">&#39;bootstrap_value&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
+<p>and we can check the attributes that edges have:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="gp">... </span><span class="n">nx</span><span class="o">.</span><span class="n">get_edge_attributes</span><span class="p">(</span><span class="n">pcpg</span><span class="o">.</span><span class="n">network</span><span class="p">,</span> <span class="s1">&#39;bootstrap_value&#39;</span><span class="p">)</span>
+<span class="go">{(0, 1): 0.897, (1, 3): 0.606, (1, 2): 0.66, (2, 0): 0.774, (3, 0): 0.708, (3, 2): 0.721}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>We recommend reproducing the tutorial’s code snippets including the product names <code class="code docutils literal notranslate"><span class="pre">['p1',</span> <span class="pre">'p2',</span> <span class="pre">'p3',</span> <span class="pre">'p4']</span></code>
+as an argument <code class="code docutils literal notranslate"><span class="pre">variable_names</span></code> to <a class="reference internal" href="code_docs.html#bipcpg.pcpg.PCPG" title="bipcpg.pcpg.PCPG"><code class="xref py py-class docutils literal notranslate"><span class="pre">PCPG</span></code></a>, which changes the <code class="docutils literal notranslate"><span class="pre">pcpg.edges</span></code> and
+<code class="docutils literal notranslate"><span class="pre">pcpg.nodes</span></code> names. We should also pass the same argument to <a class="reference internal" href="code_docs.html#bipcpg.bootstrap.get_bootstrap_values" title="bipcpg.bootstrap.get_bootstrap_values"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_bootstrap_values()</span></code></a> in
+order to obtain a <code class="docutils literal notranslate"><span class="pre">bootstrap_values</span></code> dataframe with product names along the</p>
 </div>
 </div>
 </div>
@@ -477,7 +500,7 @@ by doing:</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="README.html" class="btn btn-neutral float-left" title="biPCPG" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="code_docs.html" class="btn btn-neutral float-right" title="Code documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

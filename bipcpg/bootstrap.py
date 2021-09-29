@@ -58,7 +58,7 @@ def construct_corr_matrix_replicates_from_time_series_matrices(array_of_matrices
 
 
 def get_bootstrap_values(timeseries_matrices: Iterable[np.ndarray],
-                         variables_names: Optional[List] = None,
+                         variable_names: Optional[List] = None,
                          num_replicates: int = 1_000,
                          critical_value: Optional[float] = None) -> pd.DataFrame:
     """
@@ -71,7 +71,7 @@ def get_bootstrap_values(timeseries_matrices: Iterable[np.ndarray],
     :param list/numpy.ndarray timeseries_matrices: Iterable containing the dataset for which the PCPG network was
         generated. This should be a list containing 2d-:class:numpy.ndarray` s whose columns contain observations
         for one of the the two sets of variables in a bipartite dataset.
-    :param list variables_names: Names of variables along columns of each matrix in ``timeseries_matrices``
+    :param list variable_names: Names of variables along columns of each matrix in ``timeseries_matrices``
     :param int num_replicates: Number of replicates to generate in the bootstrap procedure.
     :param float critical_value: If passed, boundary of the acceptance region of the T-test performed.
     :return: :class:`pandas.DataFrame` containing the bootstrap values of the *directed* edges in the PCPG network.
@@ -90,8 +90,8 @@ def get_bootstrap_values(timeseries_matrices: Iterable[np.ndarray],
     edges_per_replicate = []
     for corr_matrix in corr_matrix_replicates:
 
-        if not (variables_names is None):
-            pcpg = PCPG(corr_matrix, variables_names)
+        if not (variable_names is None):
+            pcpg = PCPG(corr_matrix, variable_names)
         else:
             pcpg = PCPG(corr_matrix)
 

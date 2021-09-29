@@ -24,6 +24,7 @@ To install in an Anaconda virtual environment (recommended) with the required pa
     git clone https://github.com/cspipaon/biPCPG.git
     cd biPCPG
     conda create --name <env_name> python=3.8 --file requirements.txt -c conda-forge
+    conda activate <env_name>
     pip install .
 
 where :code:`<env_name>` should be replaced by the desired name of the virtual environment.
