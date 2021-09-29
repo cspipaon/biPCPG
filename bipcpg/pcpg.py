@@ -34,7 +34,7 @@ class PCPG:
     :ivar avg_influence_matrix: :class:`numpy.ndarray` containing average influence values between pairs of variables.
     :ivar avg_influence_df: :class:`pandas.DataFrame` containing average influence values between pairs of variables.
     :ivar influence_df: :class:`pandas.DataFrame` containing influence values between pairs of variables.
-    :ivar partial_corr_df: Multi-index :class:`pandas.DataFrame` partial correlation values between triple of
+    :ivar partial_corr_df: Multi-index :class:`pandas.DataFrame` containing partial correlation values between triple of
         variables.
     :ivar network: the PCPG network generated (a ``networkx.DiGraph`` directed graph object).
     :ivar nodes: Nodes in :attr:`network`.
