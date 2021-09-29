@@ -38,6 +38,7 @@ class PCPG:
         variables.
     :ivar network: the PCPG network generated (a ``networkx.DiGraph`` directed graph object).
     :ivar nodes: Nodes in :attr:`network`.
+    :ivar edges: Edges in :attr:`network`.
     :ivar dict_var_names: :class:`dict` containing variable numbers as keys and variables names as values.
 
     References
@@ -81,6 +82,7 @@ class PCPG:
         self.influence_df = None  # multi-index levels are x, z variables; columns are y variables
         self.partial_corr_df = None  # multi-index levels are x, z variables; columns are y variables
         self.network = None
+        self.edges = None  # edges
 
     def compute_avg_influence_matrix(self):
         """
@@ -184,7 +186,8 @@ class PCPG:
 
         edges = self.find_edges()
         edges = [(self.dict_var_names[source], self.dict_var_names[target]) for source, target in edges]
-        network.add_edges_from(edges)
+        self.edges = edges
+        network.add_edges_from(self.edges)
 
         # check number of edges is 3*(num_nodes-2)
         num_nodes = len(self.nodes)
@@ -232,16 +235,16 @@ class PCPG:
 
     def add_edge_attribute(self, attr_data: dict or pd.DataFrame, attr_name: str):
         """
-        Adds data for single attribute to edges in :attr:`network`.
+        Adds data as an attribute to edges in :attr:`~network`.
 
         :param dict/pandas.DataFrame attr_data: :class:`pandas.DataFrame` or :class:`dict` containing edge attribute
             values.
         :param str attr_name: Name of attribute to be added to edges.
 
         .. note::
-            If attr_data is a :class:`pandas.DataFrame`, rows should indicate the tail of the edge (i.e. the origin node)
-            and columns should indicate the head of the edge (i.e. the target node).
-            If attr_data is a dictionary, keys should be tuples of the form (origin_node, target_node).
+            If ``attr_data`` is a :class:`pandas.DataFrame`, the row indices should the origin nodes and column indices
+            should be the target nodes.
+            If ``attr_data`` is a dictionary, keys should be tuples of the form (origin_node, target_node).
         """
         assert isinstance(self.network, nx.DiGraph), \
             'network object has not been created. The "create_network()" method must be called before this method'
@@ -256,15 +259,15 @@ class PCPG:
 
     def add_node_attribute(self, attr_data: dict or pd.DataFrame, attr_name: str):
         """
-        Adds node attribute data to nodes in :attr:`network`.
+        Adds data as an attribute to nodes in :attr:`~network`.
 
         :param dict/pandas.Series attr_data: :class:`pandas.Series` or :class:`dict` containing node attribute values.
         :param str attr_name: Name of attribute added.
 
         .. note::
             If ``edge_attribute_values`` is a :class:`pandas.Series`, its index should contain the node and its values
-            the attribute data.
-            If ``edge_attribute_values`` is a :class:`dict`, keys should be nodes and values should be attribute data.
+            the node data.
+            If ``edge_attribute_values`` is a :class:`dict`, keys should be nodes and values should be node data.
         """
         assert isinstance(self.network, nx.DiGraph), \
             'Network object has not been created. The "create_network()" method must be called before this method'
