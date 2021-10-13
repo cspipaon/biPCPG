@@ -13,11 +13,11 @@ from setuptools import find_packages, setup, Command
 
 # Package meta-data.
 NAME = 'biPCPG'
-DESCRIPTION = 'My short description for my project.'
+DESCRIPTION = 'Implementation of the Bipartite Partial Correlation Planar Graph algorithm.'
 URL = 'https://github.com/me/myproject'
 EMAIL = 'cspipaon@gmail.com'
 AUTHOR = 'Carlos Saenz de Pipaon'
-REQUIRES_PYTHON = '>=3.7.0'
+REQUIRES_PYTHON = '>=3.8.0'
 VERSION = '0.1.0'
 
 # What packages are required for this module to be executed?
