@@ -107,9 +107,17 @@ class PCPG:
                     # find correlations between x, y, z
                     corr_xy, corr_xz, corr_yz = self.corr_matrix[x, y], self.corr_matrix[x, z], self.corr_matrix[y, z]
 
-                    # compute influence of z on x and y
-                    influence_xy_z = corr_xy - ((corr_xy - corr_xz * corr_yz) / np.sqrt(
+                    # compute partial correlation
+                    partial_corr_xy_z = ((corr_xy - corr_xz * corr_yz) / np.sqrt(
                         (1 - corr_xz ** 2) * (1 - corr_yz ** 2)))
+
+                    # if partial correlation is out of range, convert to np.nan
+                    if (partial_corr_xy_z > 1) or (partial_corr_xy_z < -1):
+                        partial_corr_xy_z = np.nan
+
+                    # compute influence of z on x and y
+                    influence_xy_z = corr_xy - partial_corr_xy_z
+
                     influence_list.append(influence_xy_z)
 
                 avg_influence_matrix[x, z] = np.nanmean(influence_list)
@@ -151,11 +159,17 @@ class PCPG:
 
                     # compute partial correlation
                     partial_corr_xy_z = (corr_xy - corr_xz * corr_yz) / np.sqrt((1 - corr_xz ** 2) * (1 - corr_yz ** 2))
+
+                    # if partial correlation is out of range, convert to np.nan
+                    if (partial_corr_xy_z > 1) or (partial_corr_xy_z < -1):
+                        partial_corr_xy_z = np.nan
+
                     partial_corr_xy_z_dict[y] = partial_corr_xy_z
 
                     # compute influence of z on x and y
                     influence_xy_z = corr_xy - partial_corr_xy_z
                     influence_xy_z_dict[y] = influence_xy_z
+
                     influence_list.append(influence_xy_z)
 
                 avg_influence_xz_dict[z] = np.nanmean(influence_list)
