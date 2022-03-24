@@ -32,13 +32,12 @@ def communities_data(G: nx.Graph, **la_kwds) -> tuple:
     :param :class:`networkx.Graph` G: ``networkx`` graph on which to perform community detection.
     :param la_kwds: keyword arguments passed on to :py:func:`leidenalg.find_partition`.
     :return:
-        - ``G_igraph`` :class:`igraph.Graph` - `igraph` graph object equivalent to ``G``.
-        - ``partition`` :class:`leidenalg.VertexPartition` - Graph partition.
-        - | ``tup_nodes_num_nodes`` :class:`tuple` - a `tuple` containing list of nodes sorted by community and list of
+        * ``G_igraph`` :class:`igraph.Graph` - `igraph` graph object equivalent to ``G``.
+        * ``partition`` :class:`leidenalg.VertexPartition` - Graph partition.
+        * | ``tup_nodes_num_nodes`` :class:`tuple` - a `tuple` containing list of nodes sorted by community and list of
           | number of nodes per community.
 
     :rtype: :class:`tuple`
-
     """
     G_igraph, partition = get_igraph_network_and_partition(G, **la_kwds)
 
