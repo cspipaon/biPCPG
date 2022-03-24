@@ -492,18 +492,22 @@ keys.</p>
 <dt id="bipcpg.utils.communities_utils.communities_data">
 <code class="sig-prename descclassname">bipcpg.utils.communities_utils.</code><code class="sig-name descname">communities_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">G</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">la_kwds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#bipcpg.utils.communities_utils.communities_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform a community detection procedure on graph <code class="docutils literal notranslate"><span class="pre">G</span></code> and return relevant results for plotting.</p>
-<p>:param <code class="xref py py-class docutils literal notranslate"><span class="pre">networkx.Graph</span></code> G: <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph on which to perform community detection.
-:param la_kwds: keyword arguments passed on to <code class="xref py py-func docutils literal notranslate"><span class="pre">leidenalg.find_partition()</span></code>.
-:return:</p>
-<blockquote>
-<div><ul class="simple">
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>G</strong> (<em>networkx.Graph</em>) – <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph on which to perform community detection.</p></li>
+<li><p><strong>la_kwds</strong> – keyword arguments passed on to <code class="xref py py-func docutils literal notranslate"><span class="pre">leidenalg.find_partition()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">G_igraph</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">igraph.Graph</span></code> - <cite>igraph</cite> graph object equivalent to <code class="docutils literal notranslate"><span class="pre">G</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">partition</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">leidenalg.VertexPartition</span></code> - Graph partition.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">tup_nodes_num_nodes</span></code> <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code> - a <cite>tuple</cite> containing list of nodes sorted by community and list of
 number of nodes per community.</p></li>
 </ul>
-</div></blockquote>
-<dl class="field-list simple">
+</p>
+</dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
 </dd>
@@ -517,8 +521,8 @@ number of nodes per community.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>G</strong> (<em>networkx.Graph</em>) – <cite>networkx</cite> graph to be converted into <cite>igraph</cite> graph.</p></li>
-<li><p><strong>la_kwds</strong> – keyword arguments passed on to <code class="docutils literal notranslate"><span class="pre">leidenalg.find_partition()</span></code>.</p></li>
+<li><p><strong>G</strong> (<em>networkx.Graph</em>) – <code class="docutils literal notranslate"><span class="pre">networkx</span></code> graph to be converted into <cite>igraph</cite> graph.</p></li>
+<li><p><strong>la_kwds</strong> – keyword arguments passed on to <code class="xref py py-func docutils literal notranslate"><span class="pre">leidenalg.find_partition()</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

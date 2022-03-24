@@ -8,8 +8,8 @@ def get_igraph_network_and_partition(G: nx.Graph, **la_kwds) -> tuple:
     """
     Obtain an ``igraph`` graph and a partition from a ``networkx`` graph.
 
-    :param networkx.Graph G: `networkx` graph to be converted into `igraph` graph.
-    :param la_kwds: keyword arguments passed on to ``leidenalg.find_partition()``.
+    :param networkx.Graph G: ``networkx`` graph to be converted into `igraph` graph.
+    :param la_kwds: keyword arguments passed on to :py:func:`leidenalg.find_partition`.
     :return:
         - ``H`` :class:`igraph.Graph` - ``igraph`` graph object.
         - ``partition`` :class:`leidenalg.VertexPartition` - Graph partition.
@@ -29,7 +29,7 @@ def communities_data(G: nx.Graph, **la_kwds) -> tuple:
     """
     Perform a community detection procedure on graph ``G`` and return relevant results for plotting.
 
-    :param :class:`networkx.Graph` G: ``networkx`` graph on which to perform community detection.
+    :param networkx.Graph G: ``networkx`` graph on which to perform community detection.
     :param la_kwds: keyword arguments passed on to :py:func:`leidenalg.find_partition`.
     :return:
         - ``G_igraph`` :class:`igraph.Graph` - `igraph` graph object equivalent to ``G``.
