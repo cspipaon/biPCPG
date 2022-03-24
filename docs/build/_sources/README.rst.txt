@@ -18,7 +18,8 @@ started.
 References
 ----------
 
-.. [1] biPCPG reference
+.. [1] Saenz de Pipaon Perez C, Zaccaria A, Di Matteo T. Asymmetric Relatedness from Partial Correlation. Entropy. 2022;
+       24(3):365. <https://doi.org/10.3390/e24030365>
 
 .. [2] Kenett DY, Tumminello M, Madi A, Gur-Gershgoren G, Mantegna RN, Ben-Jacob E (2010) Dominating Clasp of the
        Financial Sector Revealed by Partial Correlation Analysis of the Stock Market. PLoS ONE 5(12): e15032.
