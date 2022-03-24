@@ -34,8 +34,8 @@ def communities_data(G: nx.Graph, **la_kwds) -> tuple:
     :return:
         - ``G_igraph`` :class:`igraph.Graph` - `igraph` graph object equivalent to ``G``.
         - ``partition`` :class:`leidenalg.VertexPartition` - Graph partition.
-        - ``tup_nodes_num_nodes`` :class:`tuple` - a :class:`tuple` containing list of nodes sorted by community and
-            list of number of nodes per community.
+        - ``tup_nodes_num_nodes`` :class:`tuple` - a `tuple` containing list of nodes sorted by community and list of
+            number of nodes per community.
 
     :rtype: :class:`tuple`
 
